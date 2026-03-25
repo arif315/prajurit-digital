@@ -2,367 +2,286 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prajurit Digital - Program Latihan & Tes Masuk TNI/Polri</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Prajurit Digital</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto+Condensed:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
-            --apple-green: #4ade80;
-            --dark-green: #166534;
-            --army-green: #3f4f3a;
-            --dark-bg: #0f1115;
-            --darker-bg: #080a0c;
-            --card-bg: rgba(30, 35, 40, 0.9);
-            --text-light: #e2e8f0;
-            --text-gray: #94a3b8;
-            --accent: #22c55e;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --info: #3b82f6;
-            --purple: #8b5cf6;
+            --green: #22c55e;
+            --dark-green: #16a34a;
+            --bg: #0f1115;
+            --card: #1a1d23;
+            --text: #e2e8f0;
+            --gray: #94a3b8;
         }
 
         body {
             font-family: 'Roboto Condensed', sans-serif;
-            background: var(--darker-bg);
-            color: var(--text-light);
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        .bg-image {
+        .bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -3;
-            background-image: url('https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80');
-            background-size: cover;
-            background-position: center;
-            filter: brightness(0.25) contrast(1.1);
-        }
-
-        .bg-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: linear-gradient(135deg, rgba(8, 10, 12, 0.95) 0%, rgba(15, 20, 25, 0.93) 100%);
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
+                        url('https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=1920') center/cover;
+            z-index: -1;
         }
 
         /* Taskbar */
         .taskbar {
-            background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
-            padding: 0;
             position: fixed;
             top: 0;
             width: 100%;
+            background: linear-gradient(180deg, var(--green), var(--dark-green));
+            padding: 0.75rem 1rem;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
             border-bottom: 3px solid #15803d;
         }
 
-        .taskbar-content {
+        .taskbar-inner {
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
             align-items: center;
-            padding: 0 2rem;
-            height: 70px;
+            justify-content: space-between;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
             font-family: 'Black Ops One', cursive;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            margin-right: auto;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 0.5rem;
-        }
-
-        .nav-link {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
+        }
+
+        .nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
             color: rgba(255,255,255,0.9);
-            text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            padding: 0.5rem;
             border-radius: 8px;
-            position: relative;
-            overflow: hidden;
+            cursor: pointer;
+            font-size: 0.65rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            min-width: 55px;
         }
 
-        .nav-link:hover, .nav-link.active {
-            background: rgba(255,255,255,0.15);
+        .nav-btn i {
+            font-size: 1.1rem;
+        }
+
+        .nav-btn.active {
+            background: rgba(255,255,255,0.2);
             color: white;
-            transform: translateY(-2px);
         }
 
-        .main-content {
+        /* Content */
+        .content {
             margin-top: 70px;
+            padding: 1rem;
             min-height: calc(100vh - 70px);
         }
 
-        .section {
+        .page {
             display: none;
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.3s ease;
         }
 
-        .section.active {
+        .page.active {
             display: block;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Welcome Section */
-        .welcome-section {
-            height: calc(100vh - 70px);
+        /* Welcome */
+        .welcome {
+            text-align: center;
+            padding: 3rem 1rem;
+            min-height: calc(100vh - 90px);
             display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding: 0 10% 0 5%;
-            position: relative;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .welcome-content {
-            text-align: right;
-            max-width: 600px;
-            z-index: 10;
-        }
-
-        .welcome-badge {
+        .badge {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: rgba(34, 197, 94, 0.2);
-            border: 2px solid var(--apple-green);
+            background: rgba(34,197,94,0.2);
+            border: 2px solid var(--green);
             padding: 0.5rem 1rem;
             border-radius: 30px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--apple-green);
+            font-size: 0.8rem;
+            color: var(--green);
             margin-bottom: 1.5rem;
-            animation: pulse 2s infinite;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
-        }
-
-        .welcome-title {
+        h1 {
             font-family: 'Black Ops One', cursive;
-            font-size: 4rem;
-            color: white;
-            text-transform: uppercase;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
-            background: linear-gradient(to right, #ffffff, #4ade80);
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #fff, var(--green));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 1rem;
+            line-height: 1.2;
         }
 
-        .developer-credit {
+        .subtitle {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .dev-credit {
+            background: rgba(0,0,0,0.6);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--green);
             display: inline-flex;
             align-items: center;
             gap: 0.75rem;
-            background: rgba(0,0,0,0.6);
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            border-left: 4px solid var(--apple-green);
-            backdrop-filter: blur(10px);
-            margin-top: 2rem;
+            width: fit-content;
+            margin: 0 auto;
         }
 
-        /* Materi Grid Layout */
-        .materi-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .materi-card {
-            background: var(--card-bg);
-            border: 2px solid rgba(74, 222, 128, 0.2);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .materi-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--apple-green);
-            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.3);
-        }
-
-        .materi-card.psikotes:hover {
-            border-color: var(--info);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
-        }
-
-        .materi-card.wn:hover {
-            border-color: var(--danger);
-            box-shadow: 0 20px 40px rgba(239, 68, 68, 0.3);
-        }
-
-        .materi-card.pengetahuan:hover {
-            border-color: var(--purple);
-            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
-        }
-
-        .materi-header {
-            padding: 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .materi-card.psikotes .materi-header {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.1));
-        }
-
-        .materi-card.wn .materi-header {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.1));
-        }
-
-        .materi-card.pengetahuan .materi-header {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.1));
-        }
-
-        .materi-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .materi-card.psikotes .materi-icon { color: var(--info); }
-        .materi-card.wn .materi-icon { color: var(--danger); }
-        .materi-card.pengetahuan .materi-icon { color: var(--purple); }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .materi-title {
+        /* Cards */
+        .section-title {
             font-family: 'Black Ops One', cursive;
-            font-size: 1.75rem;
-            color: white;
+            font-size: 1.5rem;
+            text-align: center;
             margin-bottom: 0.5rem;
         }
 
-        .materi-subtitle {
-            color: var(--text-gray);
+        .section-sub {
+            text-align: center;
+            color: var(--gray);
             font-size: 0.9rem;
-        }
-
-        .materi-content {
-            padding: 1.5rem;
-        }
-
-        .materi-list {
-            list-style: none;
             margin-bottom: 1.5rem;
         }
 
-        .materi-list li {
-            padding: 0.75rem;
-            background: rgba(255,255,255,0.03);
+        .cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .card {
+            background: var(--card);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card:active {
+            transform: scale(0.98);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .card.psikotes .card-header { background: rgba(59,130,246,0.15); }
+        .card.wn .card-header { background: rgba(239,68,68,0.15); }
+        .card.pu .card-header { background: rgba(139,92,246,0.15); }
+        .card.week .card-header { background: rgba(34,197,94,0.15); }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card.psikotes .card-icon { color: #3b82f6; }
+        .card.wn .card-icon { color: #ef4444; }
+        .card.pu .card-icon { color: #8b5cf6; }
+        .card.week .card-icon { color: var(--green); }
+
+        .card-title {
+            font-family: 'Black Ops One', cursive;
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-sub {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .card-list {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .card-list li {
+            padding: 0.6rem;
+            background: rgba(255,255,255,0.05);
             border-radius: 8px;
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
         }
 
-        .materi-list li:hover {
-            background: rgba(255,255,255,0.08);
-            transform: translateX(5px);
-        }
-
-        .materi-list i {
-            color: var(--apple-green);
-        }
-
-        .materi-card.psikotes .materi-list i { color: var(--info); }
-        .materi-card.wn .materi-list i { color: var(--danger); }
-        .materi-card.pengetahuan .materi-list i { color: var(--purple); }
-
-        .btn-materi {
+        .btn {
             width: 100%;
-            padding: 1rem;
+            padding: 0.875rem;
             border: none;
             border-radius: 10px;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
         }
 
-        .btn-materi:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
+        .btn-green { background: linear-gradient(135deg, var(--green), var(--dark-green)); color: white; }
+        .btn-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; }
+        .btn-red { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; }
+        .btn-purple { background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; }
+        .btn-orange { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
 
-        .materi-card.psikotes .btn-materi {
-            background: linear-gradient(135deg, var(--info), #1d4ed8);
-            color: white;
-        }
-
-        .materi-card.wn .btn-materi {
-            background: linear-gradient(135deg, var(--danger), #b91c1c);
-            color: white;
-        }
-
-        .materi-card.pengetahuan .btn-materi {
-            background: linear-gradient(135deg, var(--purple), #6d28d9);
-            color: white;
-        }
-
-        /* Detail Materi Modal */
-        .detail-modal {
+        /* Modal */
+        .modal {
             display: none;
             position: fixed;
             top: 0;
@@ -370,186 +289,250 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(10px);
             z-index: 2000;
             overflow-y: auto;
         }
 
-        .detail-modal.active {
+        .modal.active {
             display: block;
         }
 
-        .detail-content {
-            max-width: 1000px;
-            margin: 2rem auto;
-            background: var(--card-bg);
-            border: 2px solid rgba(74, 222, 128, 0.3);
-            border-radius: 20px;
-            overflow: hidden;
-            animation: slideUp 0.5s ease;
+        .modal-content {
+            min-height: 100vh;
+            background: var(--card);
+            animation: slideUp 0.3s ease;
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .detail-header {
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));
-            padding: 2rem;
-            border-bottom: 2px solid rgba(74, 222, 128, 0.3);
+        .modal-header {
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
-            z-index: 100;
-        }
-
-        .detail-header.psikotes {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.1));
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-
-        .detail-title {
-            font-family: 'Black Ops One', cursive;
-            font-size: 2rem;
-            color: white;
-        }
-
-        .detail-body {
-            padding: 2rem;
-        }
-
-        .sub-materi-card {
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .sub-materi-card:hover {
-            border-color: var(--apple-green);
-            transform: translateX(10px);
-        }
-
-        .sub-materi-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
+            background: inherit;
             border-bottom: 2px solid rgba(255,255,255,0.1);
         }
 
-        .sub-materi-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(74, 222, 128, 0.2);
+        .modal-header.green { background: rgba(34,197,94,0.2); }
+        .modal-header.blue { background: rgba(59,130,246,0.2); }
+        .modal-header.red { background: rgba(239,68,68,0.2); }
+
+        .modal-title {
+            font-family: 'Black Ops One', cursive;
+            font-size: 1.2rem;
+        }
+
+        .close-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .modal-body {
+            padding: 1rem;
+        }
+
+        /* Day Card */
+        .day-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .day-card.rest {
+            border-color: rgba(245,158,11,0.3);
+            background: rgba(245,158,11,0.05);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .day-name {
+            font-family: 'Black Ops One', cursive;
+            color: var(--green);
+            font-size: 1.1rem;
+        }
+
+        .day-card.rest .day-name { color: #f59e0b; }
+
+        .day-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            background: rgba(34,197,94,0.2);
+            color: var(--green);
+            border-radius: 20px;
+        }
+
+        .day-card.rest .day-badge {
+            background: rgba(245,158,11,0.2);
+            color: #f59e0b;
+        }
+
+        .exercise-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--green);
+            border-radius: 6px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: var(--apple-green);
         }
 
-        .sub-materi-title {
-            font-family: 'Black Ops One', cursive;
-            font-size: 1.5rem;
+        .checkbox.checked {
+            background: var(--green);
+        }
+
+        .checkbox i {
+            display: none;
             color: white;
+            font-size: 0.7rem;
         }
 
-        .sub-materi-desc {
-            color: var(--text-gray);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
+        .checkbox.checked i {
+            display: block;
+        }
+
+        .rest-box {
+            text-align: center;
+            padding: 1.5rem 1rem;
+        }
+
+        .rest-icon {
+            font-size: 2.5rem;
+            color: #f59e0b;
+            margin-bottom: 0.75rem;
+            animation: float 3s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Materi Detail */
+        .materi-section {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .materi-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .materi-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(34,197,94,0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--green);
+        }
+
+        .materi-title {
+            font-family: 'Black Ops One', cursive;
+            font-size: 1.1rem;
+        }
+
+        .materi-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
         }
 
         .tips-box {
-            background: rgba(34, 197, 94, 0.1);
-            border-left: 4px solid var(--apple-green);
-            padding: 1.5rem;
-            border-radius: 0 10px 10px 0;
-            margin: 1.5rem 0;
+            background: rgba(34,197,94,0.1);
+            border-left: 3px solid var(--green);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
         }
 
         .tips-title {
+            color: var(--green);
             font-weight: 700;
-            color: var(--apple-green);
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+        }
+
+        .tips-list {
+            margin-left: 1.2rem;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .tips-list li {
+            margin-bottom: 0.5rem;
         }
 
         .example-box {
             background: rgba(0,0,0,0.4);
-            border: 1px dashed rgba(74, 222, 128, 0.3);
+            border: 1px dashed rgba(255,255,255,0.2);
             border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1rem 0;
+            padding: 1rem;
+            margin-top: 1rem;
         }
 
-        .example-title {
-            font-size: 0.9rem;
-            color: var(--text-gray);
-            margin-bottom: 1rem;
+        .example-label {
+            font-size: 0.75rem;
+            color: var(--gray);
             text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Tryout Section */
-        .tryout-section {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05));
-            border: 2px solid var(--warning);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .tryout-icon {
-            font-size: 3rem;
-            color: var(--warning);
-            margin-bottom: 1rem;
-        }
-
-        .tryout-title {
-            font-family: 'Black Ops One', cursive;
-            font-size: 1.5rem;
-            color: var(--warning);
             margin-bottom: 0.5rem;
         }
 
-        .tryout-desc {
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-        }
-
-        .btn-tryout {
-            background: linear-gradient(135deg, var(--warning), #d97706);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 10px;
+        .example-q {
             font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
         }
 
-        .btn-tryout:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+        .example-a {
+            color: var(--green);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
         }
 
-        /* Quiz Interface */
+        /* Quiz */
         .quiz-container {
             display: none;
             position: fixed;
@@ -557,190 +540,126 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--darker-bg);
+            background: var(--bg);
             z-index: 3000;
-            overflow-y: auto;
+            flex-direction: column;
         }
 
         .quiz-container.active {
-            display: block;
+            display: flex;
         }
 
         .quiz-header {
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));
-            padding: 1.5rem 2rem;
-            border-bottom: 2px solid rgba(74, 222, 128, 0.3);
+            background: rgba(34,197,94,0.2);
+            padding: 1rem;
+            border-bottom: 2px solid var(--green);
+        }
+
+        .quiz-title {
+            font-family: 'Black Ops One', cursive;
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .quiz-stats {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
-        .quiz-progress {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        .progress-wrap {
             flex: 1;
-            max-width: 400px;
+            margin-right: 1rem;
         }
 
         .progress-bar {
-            flex: 1;
-            height: 10px;
+            height: 8px;
             background: rgba(255,255,255,0.1);
-            border-radius: 5px;
+            border-radius: 4px;
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--apple-green), var(--dark-green));
-            transition: width 0.3s ease;
+            background: var(--green);
+            transition: width 0.3s;
         }
 
         .timer {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 1.5rem;
-            color: var(--warning);
-            background: rgba(0,0,0,0.5);
-            padding: 0.5rem 1rem;
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: #f59e0b;
+            border: 2px solid #f59e0b;
+            padding: 0.3rem 0.8rem;
             border-radius: 8px;
-            border: 2px solid var(--warning);
         }
 
         .quiz-body {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 2rem;
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
         }
 
-        .question-card {
-            background: var(--card-bg);
+        .question-box {
+            background: var(--card);
             border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            border-radius: 16px;
+            padding: 1.25rem;
         }
 
-        .question-number {
+        .q-num {
             display: inline-block;
-            background: var(--apple-green);
+            background: var(--green);
             color: black;
-            padding: 0.25rem 0.75rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 20px;
+            font-size: 0.75rem;
             font-weight: 700;
-            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 700;
             margin-bottom: 1rem;
+            line-height: 1.4;
         }
 
-        .question-text {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-
-        .options-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .option-item {
+        .option {
             background: rgba(255,255,255,0.05);
             border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
         }
 
-        .option-item:hover {
-            background: rgba(74, 222, 128, 0.1);
-            border-color: var(--apple-green);
-            transform: translateX(10px);
-        }
-
-        .option-item.selected {
-            background: rgba(74, 222, 128, 0.2);
-            border-color: var(--apple-green);
-        }
-
-        .option-item.correct {
-            background: rgba(34, 197, 94, 0.3);
-            border-color: var(--apple-green);
-        }
-
-        .option-item.wrong {
-            background: rgba(239, 68, 68, 0.3);
-            border-color: var(--danger);
-        }
-
-        .option-letter {
-            width: 35px;
-            height: 35px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            flex-shrink: 0;
+        .option.selected {
+            background: rgba(34,197,94,0.2);
+            border-color: var(--green);
         }
 
         .quiz-footer {
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            padding: 0 2rem;
+            padding: 1rem;
+            background: rgba(0,0,0,0.3);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 0.75rem;
         }
 
-        .btn-nav {
-            background: rgba(255,255,255,0.1);
-            border: 2px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-nav:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        .btn-nav:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .btn-finish {
-            background: linear-gradient(135deg, var(--apple-green), var(--dark-green));
-            color: white;
+        .quiz-btn {
+            flex: 1;
+            padding: 0.875rem;
             border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
 
-        .btn-finish:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(34, 197, 94, 0.4);
+        .quiz-btn:disabled {
+            opacity: 0.5;
         }
 
-        /* Result Screen */
+        /* Result */
         .result-container {
             display: none;
             position: fixed;
@@ -748,1027 +667,1141 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--darker-bg);
-            z-index: 3000;
-            overflow-y: auto;
+            background: var(--bg);
+            z-index: 4000;
             align-items: center;
             justify-content: center;
+            padding: 2rem 1rem;
         }
 
         .result-container.active {
             display: flex;
         }
 
-        .result-content {
+        .result-box {
             text-align: center;
-            max-width: 600px;
-            padding: 2rem;
-            animation: scaleIn 0.5s ease;
-        }
-
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+            max-width: 400px;
+            width: 100%;
         }
 
         .result-icon {
-            font-size: 6rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .result-icon.pass {
-            color: var(--apple-green);
-            animation: bounce 1s infinite;
-        }
-
-        .result-icon.fail {
-            color: var(--danger);
-            animation: shake 0.5s;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .result-title {
-            font-family: 'Black Ops One', cursive;
-            font-size: 2.5rem;
+            font-size: 5rem;
             margin-bottom: 1rem;
         }
 
-        .result-title.pass { color: var(--apple-green); }
-        .result-title.fail { color: var(--danger); }
+        .result-icon.pass { color: var(--green); }
+        .result-icon.fail { color: #ef4444; }
 
-        .result-score {
-            font-size: 5rem;
+        .result-title {
             font-family: 'Black Ops One', cursive;
-            margin: 1rem 0;
-            background: linear-gradient(135deg, var(--apple-green), var(--dark-green));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
         }
 
-        .result-message {
-            font-size: 1.25rem;
-            color: var(--text-gray);
-            margin-bottom: 2rem;
+        .result-title.pass { color: var(--green); }
+        .result-title.fail { color: #ef4444; }
+
+        .result-score {
+            font-size: 4rem;
+            font-family: 'Black Ops One', cursive;
+            color: var(--green);
+            margin: 1rem 0;
+        }
+
+        .result-msg {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
             line-height: 1.6;
         }
 
         .result-motivation {
             background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border-left: 4px solid var(--apple-green);
+            padding: 1.25rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--green);
             font-style: italic;
-            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
-        .btn-retry {
-            background: linear-gradient(135deg, var(--apple-green), var(--dark-green));
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 10px;
+        .result-motivation.fail {
+            border-left-color: #ef4444;
+        }
+
+        .result-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        /* About */
+        .about-hero {
+            background: rgba(34,197,94,0.2);
+            padding: 2rem 1rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--green);
+        }
+
+        .about-icon {
+            font-size: 3rem;
+            color: var(--green);
+            margin-bottom: 1rem;
+        }
+
+        .about-box {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-text {
+            color: var(--gray);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            text-align: justify;
+            margin-bottom: 1rem;
+        }
+
+        .highlight {
+            color: var(--green);
             font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-right: 1rem;
         }
 
-        .btn-home {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.2);
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+        .mission-box {
+            background: rgba(34,197,94,0.1);
+            border-left: 4px solid var(--green);
+            padding: 1rem;
+            border-radius: 0 12px 12px 0;
+            margin: 1.5rem 0;
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .materi-container {
-                grid-template-columns: 1fr;
-            }
+        .mission-title {
+            font-family: 'Black Ops One', cursive;
+            color: var(--green);
+            margin-bottom: 0.5rem;
         }
 
-        @media (max-width: 768px) {
-            .welcome-title {
-                font-size: 2.5rem;
-            }
-            .nav-link span {
-                display: none;
-            }
-            .quiz-header {
-                flex-direction: column;
-                gap: 1rem;
-            }
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
 
-        /* Close Button */
-        .close-btn {
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
-            cursor: pointer;
+        .feature {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .feature i {
             font-size: 1.5rem;
-            transition: all 0.3s ease;
+            color: var(--green);
+            margin-bottom: 0.5rem;
         }
 
-        .close-btn:hover {
-            background: rgba(239, 68, 68, 0.3);
-            transform: rotate(90deg);
+        .feature-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-desc {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .dev-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .dev-card {
+            background: rgba(0,0,0,0.3);
+            padding: 1.25rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .dev-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .dev-card:first-child .dev-avatar {
+            background: linear-gradient(135deg, var(--green), var(--dark-green));
+        }
+
+        .dev-card:last-child .dev-avatar {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+
+        .dev-name {
+            font-family: 'Black Ops One', cursive;
+            margin-bottom: 0.25rem;
+        }
+
+        .dev-role {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Black Ops One', cursive;
+            font-size: 1.5rem;
+            color: var(--green);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--gray);
+            text-transform: uppercase;
+        }
+
+        @media (min-width: 768px) {
+            .cards {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            h1 {
+                font-size: 4rem;
+            }
+            
+            .nav-btn {
+                font-size: 0.8rem;
+                padding: 0.75rem 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="bg-image"></div>
-    <div class="bg-container"></div>
+    <div class="bg"></div>
 
     <!-- Taskbar -->
     <nav class="taskbar">
-        <div class="taskbar-content">
+        <div class="taskbar-inner">
             <div class="logo">
                 <i class="fas fa-shield-alt"></i>
-                PRAJURIT DIGITAL
+                <span>PRAJURIT</span>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active" onclick="showSection('home')">
-                        <i class="fas fa-home"></i>
-                        <span>Home</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="showSection('jadwal')">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>Jadwal</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="showSection('materi')">
-                        <i class="fas fa-book"></i>
-                        <span>Materi</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="showSection('about')">
-                        <i class="fas fa-info-circle"></i>
-                        <span>About</span>
-                    </a>
-                </li>
-            </ul>
+            <div class="nav">
+                <button class="nav-btn active" onclick="showPage('home')">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" onclick="showPage('jadwal')">
+                    <i class="fas fa-calendar"></i>
+                    <span>Jadwal</span>
+                </button>
+                <button class="nav-btn" onclick="showPage('materi')">
+                    <i class="fas fa-book"></i>
+                    <span>Materi</span>
+                </button>
+                <button class="nav-btn" onclick="showPage('about')">
+                    <i class="fas fa-info"></i>
+                    <span>About</span>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Home Section -->
-        <section id="home" class="section active">
-            <div class="welcome-section">
-                <div class="welcome-content">
-                    <div class="welcome-badge">
-                        <i class="fas fa-star"></i>
-                        PROGRAM LATIHAN TNI/POLRI
-                    </div>
-                    <h1 class="welcome-title">Welcome<br>Prajurit!</h1>
-                    <p class="welcome-subtitle">Aku akan membimbing jalan anda menuju kesuksesan. Setiap tetes keringat adalah investasi untuk masa depan gemilang dan kebahagiaan orang tua.</p>
-                    <div class="developer-credit">
-                        <i class="fas fa-code"></i>
-                        <div class="developer-text">
-                            <div class="developer-label">Developed by</div>
-                            <div class="developer-name">ARIF & KIMI AI</div>
-                        </div>
+    <!-- Content -->
+    <div class="content">
+        <!-- Home -->
+        <div id="home" class="page active">
+            <div class="welcome">
+                <div class="badge">
+                    <i class="fas fa-star"></i>
+                    PROGRAM LATIHAN TNI/POLRI
+                </div>
+                <h1>Welcome<br>Prajurit!</h1>
+                <p class="subtitle">
+                    Aku akan membimbing jalan anda menuju kesuksesan. Setiap tetes keringat adalah investasi untuk masa depan gemilang dan kebahagiaan orang tua.
+                </p>
+                <div class="dev-credit">
+                    <i class="fas fa-code" style="color: var(--green); font-size: 1.25rem;"></i>
+                    <div>
+                        <div style="font-size: 0.7rem; color: var(--gray);">Developed by</div>
+                        <div style="font-family: monospace; font-weight: 700;">ARIF & KIMI AI</div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- Jadwal Section -->
-        <section id="jadwal" class="section">
-            <div class="section-header" style="text-align: center; margin-bottom: 2rem;">
-                <h2 class="section-title" style="font-family: 'Black Ops One', cursive; font-size: 2.5rem; color: white;">Jadwal Latihan Fisik</h2>
-                <p style="color: var(--text-gray);">Program 6 minggu persiapan fisik TNI/Polri</p>
-            </div>
-            <div id="jadwalContainer">
-                <!-- Generated by JS -->
-            </div>
-        </section>
+        <!-- Jadwal -->
+        <div id="jadwal" class="page">
+            <h2 class="section-title">Jadwal Latihan 6 Minggu</h2>
+            <p class="section-sub">Program bertahap persiapan fisik TNI/Polri</p>
+            <div class="cards" id="weekList"></div>
+        </div>
 
-        <!-- Materi Section -->
-        <section id="materi" class="section">
-            <div class="section-header" style="text-align: center; margin-bottom: 2rem;">
-                <h2 class="section-title" style="font-family: 'Black Ops One', cursive; font-size: 2.5rem; color: white;">Materi & Pembelajaran</h2>
-                <p style="color: var(--text-gray);">Persiapkan mental dan pengetahuan anda</p>
-            </div>
-            
-            <div class="materi-container">
-                <!-- Psikotes Card -->
-                <div class="materi-card psikotes" onclick="openMateriDetail('psikotes')">
-                    <div class="materi-header">
-                        <i class="fas fa-brain materi-icon"></i>
-                        <h3 class="materi-title">Psikotes</h3>
-                        <p class="materi-subtitle">Tes Kecermatan & Logika</p>
+        <!-- Materi -->
+        <div id="materi" class="page">
+            <h2 class="section-title">Materi & Pembelajaran</h2>
+            <p class="section-sub">Persiapkan mental dan pengetahuan anda</p>
+            <div class="cards">
+                <div class="card psikotes" onclick="openMateri('psikotes')">
+                    <div class="card-header">
+                        <i class="fas fa-brain card-icon"></i>
+                        <div class="card-title">Psikotes</div>
+                        <div class="card-sub">Tes Kecermatan & Logika</div>
                     </div>
-                    <div class="materi-content">
-                        <ul class="materi-list">
-                            <li><i class="fas fa-check-circle"></i> Tes Logika Numerik</li>
-                            <li><i class="fas fa-check-circle"></i> Tes Kecermatan</li>
-                            <li><i class="fas fa-check-circle"></i> Tes Ketelitian</li>
-                            <li><i class="fas fa-check-circle"></i> Tes Verbal</li>
-                            <li><i class="fas fa-check-circle"></i> Tes Figural</li>
+                    <div class="card-body">
+                        <ul class="card-list">
+                            <li><i class="fas fa-check" style="color: #3b82f6;"></i> Tes Logika Numerik</li>
+                            <li><i class="fas fa-check" style="color: #3b82f6;"></i> Tes Kecermatan</li>
+                            <li><i class="fas fa-check" style="color: #3b82f6;"></i> Tes Ketelitian</li>
+                            <li><i class="fas fa-check" style="color: #3b82f6;"></i> Tes Verbal</li>
+                            <li><i class="fas fa-check" style="color: #3b82f6;"></i> Tes Figural</li>
                         </ul>
-                        <button class="btn-materi">
-                            <i class="fas fa-book-open"></i> Pelajari Materi
-                        </button>
+                        <button class="btn btn-blue">Pelajari Materi</button>
                     </div>
                 </div>
 
-                <!-- Wawasan Negara Card -->
-                <div class="materi-card wn" onclick="openMateriDetail('wn')">
-                    <div class="materi-header">
-                        <i class="fas fa-flag materi-icon"></i>
-                        <h3 class="materi-title">Wawasan Negara</h3>
-                        <p class="materi-subtitle">Tes Wawasan Kebangsaan</p>
+                <div class="card wn" onclick="openMateri('wn')">
+                    <div class="card-header">
+                        <i class="fas fa-flag card-icon"></i>
+                        <div class="card-title">Wawasan Negara</div>
+                        <div class="card-sub">Tes Wawasan Kebangsaan</div>
                     </div>
-                    <div class="materi-content">
-                        <ul class="materi-list">
-                            <li><i class="fas fa-check-circle"></i> Pancasila & UUD 1945</li>
-                            <li><i class="fas fa-check-circle"></i> Sejarah Kemerdekaan</li>
-                            <li><i class="fas fa-check-circle"></i> Proklamator & Pahlawan</li>
-                            <li><i class="fas fa-check-circle"></i> Sistem Pemerintahan</li>
-                            <li><i class="fas fa-check-circle"></i> NKRI & Bhinneka Tunggal Ika</li>
+                    <div class="card-body">
+                        <ul class="card-list">
+                            <li><i class="fas fa-check" style="color: #ef4444;"></i> Pancasila & UUD 1945</li>
+                            <li><i class="fas fa-check" style="color: #ef4444;"></i> Sejarah Kemerdekaan</li>
+                            <li><i class="fas fa-check" style="color: #ef4444;"></i> Proklamator & Pahlawan</li>
+                            <li><i class="fas fa-check" style="color: #ef4444;"></i> Sistem Pemerintahan</li>
+                            <li><i class="fas fa-check" style="color: #ef4444;"></i> NKRI & Bhinneka</li>
                         </ul>
-                        <button class="btn-materi">
-                            <i class="fas fa-book-open"></i> Pelajari Materi
-                        </button>
+                        <button class="btn btn-red">Pelajari Materi</button>
                     </div>
                 </div>
 
-                <!-- Pengetahuan Umum Card -->
-                <div class="materi-card pengetahuan" onclick="openMateriDetail('pu')">
-                    <div class="materi-header">
-                        <i class="fas fa-globe materi-icon"></i>
-                        <h3 class="materi-title">Pengetahuan Umum</h3>
-                        <p class="materi-subtitle">Wawasan Umum & Terkini</p>
+                <div class="card pu" onclick="openMateri('pu')">
+                    <div class="card-header">
+                        <i class="fas fa-globe card-icon"></i>
+                        <div class="card-title">Pengetahuan Umum</div>
+                        <div class="card-sub">Wawasan Umum & Terkini</div>
                     </div>
-                    <div class="materi-content">
-                        <ul class="materi-list">
-                            <li><i class="fas fa-check-circle"></i> Geografi Indonesia</li>
-                            <li><i class="fas fa-check-circle"></i> Ekonomi & Sosial</li>
-                            <li><i class="fas fa-check-circle"></i> Sains & Teknologi</li>
-                            <li><i class="fas fa-check-circle"></i> Budaya & Tradisi</li>
-                            <li><i class="fas fa-check-circle"></i> Berita Terkini</li>
+                    <div class="card-body">
+                        <ul class="card-list">
+                            <li><i class="fas fa-check" style="color: #8b5cf6;"></i> Geografi Indonesia</li>
+                            <li><i class="fas fa-check" style="color: #8b5cf6;"></i> Ekonomi & Sosial</li>
+                            <li><i class="fas fa-check" style="color: #8b5cf6;"></i> Sains & Teknologi</li>
+                            <li><i class="fas fa-check" style="color: #8b5cf6;"></i> Budaya & Tradisi</li>
+                            <li><i class="fas fa-check" style="color: #8b5cf6;"></i> Berita Terkini</li>
                         </ul>
-                        <button class="btn-materi">
-                            <i class="fas fa-book-open"></i> Pelajari Materi
-                        </button>
+                        <button class="btn btn-purple">Pelajari Materi</button>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- About Section -->
-        <section id="about" class="section">
-            <div style="max-width: 900px; margin: 0 auto; background: var(--card-bg); border: 2px solid rgba(74, 222, 128, 0.2); border-radius: 20px; padding: 3rem;">
-                <h2 style="font-family: 'Black Ops One', cursive; font-size: 2.5rem; color: white; text-align: center; margin-bottom: 2rem;">TENTANG WEBSITE</h2>
-                <div style="color: var(--text-gray); line-height: 1.8; font-size: 1.1rem; text-align: justify;">
-                    <p style="margin-bottom: 1.5rem;">
-                        Website <span style="color: var(--apple-green); font-weight: 700;">Prajurit Digital</span> lahir dari sebuah visi sederhana namun mulia: membantu para pemuda Indonesia yang bercita-cita menjadi prajurit TNI atau anggota Polri dalam mempersiapkan diri secara fisik maupun mental.
+        <!-- About -->
+        <div id="about" class="page">
+            <div class="about-hero">
+                <i class="fas fa-medal about-icon"></i>
+                <h2 class="section-title" style="margin-bottom: 0.5rem;">TENTANG WEBSITE</h2>
+                <p style="color: var(--gray);">Dibuat dengan dedikasi untuk para pejuang masa depan</p>
+            </div>
+
+            <div class="about-box">
+                <p class="about-text">
+                    Website <span class="highlight">Prajurit Digital</span> lahir dari visi mulia: membantu para pemuda Indonesia yang bercita-cita menjadi prajurit TNI atau anggota Polri dalam mempersiapkan diri secara fisik maupun mental. Kami memahami bahwa jalan menuju kesuksesan tidak selalu mudah, terkadang kita butuh panduan yang terstruktur dan sistematis.
+                </p>
+
+                <p class="about-text">
+                    Program latihan yang kami susun mengikuti standar kebugaran militer namun disesuaikan dengan kemampuan pemula, bertahap dari minggu ke minggu selama <span class="highlight">42 hari</span> (6 minggu). Setiap sesi dirancang untuk membangun fondasi kekuatan otot, daya tahan kardiovaskular, dan ketahanan mental yang dibutuhkan dalam seleksi masuk TNI/Polri.
+                </p>
+
+                <div class="mission-box">
+                    <div class="mission-title">MISI KAMI</div>
+                    <p style="color: var(--gray); font-size: 0.9rem; line-height: 1.6;">
+                        Membantu setiap anak bangsa yang ingin membahagiakan orang tuanya melalui kesuksesan menjadi prajurit. Karena kami percaya, dibalik setiap seragam yang gagah, ada air mata haru orang tua yang bangga dan doa-doa yang terkabul.
                     </p>
-                    <p style="margin-bottom: 1.5rem;">
-                        Kami memahami bahwa jalan menuju kesuksesan tidak selalu mudah, terkadang kita butuh panduan yang terstruktur dan sistematis. Program latihan yang kami susun mengikuti standar kebugaran militer namun disesuaikan dengan kemampuan pemula.
-                    </p>
-                    <div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid var(--apple-green); padding: 1.5rem; border-radius: 0 10px 10px 0; margin: 2rem 0;">
-                        <h3 style="color: var(--apple-green); font-family: 'Black Ops One', cursive; margin-bottom: 0.5rem;">MISI KAMI</h3>
-                        <p>Membantu setiap anak bangsa yang ingin membahagiakan orang tuanya melalui kesuksesan menjadi prajurit.</p>
+                </div>
+
+                <p class="about-text">
+                    Website ini dilengkapi dengan <span class="highlight">materi psikotes lengkap</span> yang mencakup tes logika numerik, tes kecermatan (Kraepelin/Pauli), tes ketelitian, tes verbal, dan tes figural. Semua materi disertai dengan penjelasan detail, tips & trik, serta contoh soal yang dapat dipelajari secara mandiri.
+                </p>
+
+                <p class="about-text">
+                    Tidak ketinggalan, kami juga menyediakan <span class="highlight">materi wawasan negara</span> yang mencakup Pancasila, UUD 1945, sejarah kemerdekaan, tokoh-tokoh proklamator, dan sistem ketatanegaraan Indonesia. Semua dirangkum dalam format yang mudah dipahami dan diingat.
+                </p>
+
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-dumbbell"></i>
+                        <div class="feature-title">Latihan Fisik</div>
+                        <div class="feature-desc">Program 6 minggu bertahap sesuai standar TNI/Polri</div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-brain"></i>
+                        <div class="feature-title">Psikotes</div>
+                        <div class="feature-desc">5 jenis tes lengkap dengan tryout interaktif</div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-flag"></i>
+                        <div class="feature-title">Wawasan Negara</div>
+                        <div class="feature-desc">Pancasila, UUD 1945, dan sejarah kemerdekaan</div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-globe"></i>
+                        <div class="feature-title">Pengetahuan Umum</div>
+                        <div class="feature-desc">Geografi, ekonomi, sains, dan budaya Indonesia</div>
                     </div>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem;">
-                    <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 12px; text-align: center;">
-                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--apple-green), var(--dark-green)); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">AR</div>
-                        <h3 style="font-family: 'Black Ops One', cursive; color: white;">ARIF</h3>
-                        <p style="color: var(--apple-green);">Founder & Visioner</p>
+
+                <p class="about-text">
+                    Ingatlah selalu, <span class="highlight">latihan ini bukan hanya untukmu, tapi untuk mereka yang selalu mendoakanmu di rumah</span>. Setiap push-up yang kamu lakukan, setiap kilometer yang kamu tempuh, adalah bukti cinta dan pengabdianmu kepada orang tua. Jangan pernah menyerah, karena masa depan gemilang menantimu di ujung perjuangan ini.
+                </p>
+
+                <div class="stats-row">
+                    <div class="stat">
+                        <div class="stat-num">6</div>
+                        <div class="stat-label">Minggu Program</div>
                     </div>
-                    <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 12px; text-align: center;">
-                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;"><i class="fas fa-robot"></i></div>
-                        <h3 style="font-family: 'Black Ops One', cursive; color: white;">KIMI AI</h3>
-                        <p style="color: #3b82f6;">Developer & Programmer</p>
+                    <div class="stat">
+                        <div class="stat-num">3</div>
+                        <div class="stat-label">Kategori Materi</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num">60+</div>
+                        <div class="stat-label">Soal Tryout</div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
 
-    <!-- Materi Detail Modal -->
-    <div class="detail-modal" id="materiModal">
-        <div class="detail-content" id="materiContent">
-            <!-- Content injected by JS -->
+            <div class="about-box">
+                <h3 style="font-family: 'Black Ops One', cursive; text-align: center; margin-bottom: 1rem;">DEVELOPER</h3>
+                <div class="dev-grid">
+                    <div class="dev-card">
+                        <div class="dev-avatar"><i class="fas fa-user"></i></div>
+                        <div class="dev-name">ARIF</div>
+                        <div class="dev-role">Founder & Visioner</div>
+                    </div>
+                    <div class="dev-card">
+                        <div class="dev-avatar"><i class="fas fa-robot"></i></div>
+                        <div class="dev-name">KIMI AI</div>
+                        <div class="dev-role">Developer & Programmer</div>
+                    </div>
+                </div>
+            </div>
+
+            <p style="text-align: center; color: var(--gray); font-size: 0.85rem; margin-top: 1.5rem; font-style: italic;">
+                "Dibuat dengan cinta untuk negeri dan para pejuang masa depan Indonesia"
+            </p>
+        </div>
+    </div>
+
+    <!-- Schedule Modal -->
+    <div class="modal" id="scheduleModal">
+        <div class="modal-content">
+            <div class="modal-header green">
+                <div class="modal-title" id="scheduleTitle">Minggu 1</div>
+                <button class="close-btn" onclick="closeModal('scheduleModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="scheduleBody"></div>
+        </div>
+    </div>
+
+    <!-- Materi Modal -->
+    <div class="modal" id="materiModal">
+        <div class="modal-content">
+            <div class="modal-header" id="materiHeader">
+                <div class="modal-title" id="materiTitle">Materi</div>
+                <button class="close-btn" onclick="closeModal('materiModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="materiBody"></div>
         </div>
     </div>
 
     <!-- Quiz Container -->
     <div class="quiz-container" id="quizContainer">
         <div class="quiz-header">
-            <h3 style="font-family: 'Black Ops One', cursive; color: white; font-size: 1.5rem;" id="quizTitle">TRYOUT</h3>
-            <div class="quiz-progress">
-                <span style="color: var(--text-gray);">Progress:</span>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="quizProgress" style="width: 0%"></div>
+            <div class="quiz-title" id="quizTitle">TRYOUT</div>
+            <div class="quiz-stats">
+                <div class="progress-wrap">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--gray); margin-bottom: 0.25rem;">
+                        <span>Progress</span>
+                        <span id="quizCounter">1/20</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="quizProgress" style="width: 5%"></div>
+                    </div>
                 </div>
-                <span id="questionCounter" style="color: white; font-weight: 700;">1/25</span>
+                <div class="timer" id="quizTimer">05:00</div>
             </div>
-            <div class="timer" id="timer">05:00</div>
         </div>
-        <div class="quiz-body" id="quizBody">
-            <!-- Questions injected by JS -->
-        </div>
+        <div class="quiz-body" id="quizBody"></div>
         <div class="quiz-footer">
-            <button class="btn-nav" id="prevBtn" onclick="prevQuestion()" disabled>
-                <i class="fas fa-arrow-left"></i> Sebelumnya
-            </button>
-            <button class="btn-finish" id="nextBtn" onclick="nextQuestion()">
-                Selanjutnya <i class="fas fa-arrow-right"></i>
-            </button>
+            <button class="quiz-btn btn-prev" id="quizPrev" onclick="prevQuestion()" disabled>Sebelumnya</button>
+            <button class="quiz-btn btn-green" id="quizNext" onclick="nextQuestion()">Selanjutnya</button>
         </div>
     </div>
 
     <!-- Result Container -->
     <div class="result-container" id="resultContainer">
-        <div class="result-content">
-            <div class="result-icon" id="resultIcon">
-                <i class="fas fa-trophy"></i>
-            </div>
-            <h2 class="result-title" id="resultTitle">SELAMAT!</h2>
+        <div class="result-box">
+            <div class="result-icon pass" id="resultIcon"><i class="fas fa-trophy"></i></div>
+            <h2 class="result-title pass" id="resultTitle">SELAMAT!</h2>
             <div class="result-score" id="resultScore">85</div>
-            <p class="result-message" id="resultMessage">
-                Anda telah berhasil melewati batas minimum kelulusan.
-            </p>
+            <p class="result-msg" id="resultMsg">Anda telah berhasil melewati batas minimum kelulusan.</p>
             <div class="result-motivation" id="resultMotivation">
-                "Keberhasilan adalah perjalanan, bukan tujuan. Teruslah berlatih dan perbaiki diri."
+                "Kerja keras Anda membuahkan hasil! Teruslah berlatih dan perbaiki diri."
             </div>
-            <div>
-                <button class="btn-retry" onclick="retryQuiz()">
-                    <i class="fas fa-redo"></i> Coba Lagi
-                </button>
-                <button class="btn-home" onclick="closeQuiz()">
-                    <i class="fas fa-home"></i> Kembali
-                </button>
+            <div class="result-btns">
+                <button class="btn btn-green" onclick="retryQuiz()"><i class="fas fa-redo"></i> Coba Lagi</button>
+                <button class="btn" style="background: rgba(255,255,255,0.1); color: white; border: 2px solid rgba(255,255,255,0.2);" onclick="closeQuiz()"><i class="fas fa-home"></i> Menu Utama</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Data Materi Psikotes
-        const materiPsikotes = {
-            title: "Materi Psikotes Lengkap",
-            type: "psikotes",
-            sections: [
-                {
-                    icon: "fa-calculator",
-                    title: "Tes Logika Numerik",
-                    content: "Tes logika numerik menguji kemampuan anda dalam berpikir matematis dan pola angka. Fokus pada pola aritmatika, deret angka, dan hubungan matematis.",
-                    tips: [
-                        "Perhatikan selisih antar angka dalam deret",
-                        "Cari pola kelipatan atau operasi matematis (tambah, kurang, kali, bagi)",
-                        "Perhatikan pola ganjil-genap atau pola berkelompok",
-                        "Jangan terpaku pada satu pola, coba berbagai kemungkinan"
-                    ],
-                    example: {
-                        soal: "2, 4, 8, 16, ...",
-                        jawaban: "32 (pola ×2)",
-                        penjelasan: "Setiap angka dikalikan 2. Ini adalah deret geometri dengan rasio 2."
-                    }
-                },
-                {
-                    icon: "fa-eye",
-                    title: "Tes Kecermatan (Kraepelin/Pauli)",
-                    content: "Tes ini menguji ketahanan konsentrasi anda dalam melakukan operasi penjumlahan berulang dalam waktu tertentu. Dikenal juga sebagai tes koran.",
-                    tips: [
-                        "Kerjakan dari atas ke bawah, jangan melompat",
-                        "Fokus pada dua angka yang akan dijumlahkan saja",
-                        "Jika stuck, langsung pindah ke soal berikutnya",
-                        "Latih kecepatan jari dengan latihan rutin",
-                        "Jaga napas tetap teratur dan tenang"
-                    ],
-                    example: {
-                        soal: "7 8 5 3 9 (jumlahkan 2 angka berdampingan)",
-                        jawaban: "15, 13, 8, 12",
-                        penjelasan: "7+8=15, 8+5=13, 5+3=8, 3+9=12. Hasilnya hanya satuan jika >9."
-                    }
-                },
-                {
-                    icon: "fa-search",
-                    title: "Tes Ketelitian",
-                    content: "Menguji kemampuan membedakan detail kecil, mencari kesamaan atau perbedaan dalam kumpulan data, huruf, atau angka.",
-                    tips: [
-                        "Kerjakan dengan sistematis, jangan melompat-lompat",
-                        "Perhatikan detail kecil seperti titik, koma, atau spasi",
-                        "Bandingkan karakter per karakter untuk mencari perbedaan",
-                        "Gunakan jari sebagai penunjuk untuk menghindari kesalahan lihat"
-                    ],
-                    example: {
-                        soal: "Manakah yang berbeda? A. 8975301  B. 8975301  C. 8975310",
-                        jawaban: "C (angka terakhir 0, bukan 1)",
-                        penjelasan: "Perbedaan hanya pada digit terakhir: 0 vs 1."
-                    }
-                },
-                {
-                    icon: "fa-font",
-                    title: "Tes Kemampuan Verbal",
-                    content: "Menguji pemahaman bahasa, sinonim, antonim, analogi kata, dan kemampuan menarik kesimpulan dari teks.",
-                    tips: [
-                        "Perbacaan kosakata bahasa Indonesia secara rutin",
-                        "Pahami konteks kalimat untuk mencari sinonim yang tepat",
-                        "Untuk analogi: cari hubungan antara pasangan kata pertama",
-                        "Baca dengan teliti, jangan terburu-buru"
-                    ],
-                    example: {
-                        soal: "MURAH : MAHAL = BANYAK : ?",
-                        jawaban: "SEDIKIT (antonim)",
-                        penjelasan: "Murah adalah lawan dari mahal, maka lawan dari banyak adalah sedikit."
-                    }
-                },
-                {
-                    icon: "fa-shapes",
-                    title: "Tes Figural (Gambar)",
-                    content: "Menguji kemampuan spasial dan logika visual melalui pola gambar, rotasi, pencerminan, dan hubungan bentuk geometris.",
-                    tips: [
-                        "Perhatikan perubahan bentuk dari satu frame ke frame berikutnya",
-                        "Identifikasi rotasi (putaran) atau refleksi (pencerminan)",
-                        "Cari pola pengulangan atau penambahan elemen",
-                        "Perhatikan ukuran, posisi, dan jumlah elemen gambar"
-                    ],
-                    example: {
-                        soal: "Segitiga → Segitiga terbalik → ?",
-                        jawaban: "Segitiga normal lagi (rotasi 180° berulang)",
-                        penjelasan: "Pola rotasi 180 derajat setiap langkah."
-                    }
-                }
-            ]
-        };
-
-        // Data Materi Wawasan Negara
-        const materiWN = {
-            title: "Wawasan Negara & Kebangsaan",
-            type: "wn",
-            sections: [
-                {
-                    icon: "fa-star",
-                    title: "Pancasila",
-                    content: "Pancasila adalah dasar negara dan ideologi bangsa Indonesia. Menguasai nilai-nilai luhur Pancasila sangat penting untuk tes wawasan kebangsaan.",
-                    tips: [
-                        "Hafalkan 5 sila beserta lambangnya",
-                        "Pahami makna mendalam setiap sila",
-                        "Ketahui sejarah perumusan Pancasila (18 Agustus 1945)",
-                        "Pahami hubungan Pancasila dengan UUD 1945"
-                    ],
-                    example: {
-                        soal: "Sila ke-3 Pancasila berbunyi?",
-                        jawaban: "Persatuan Indonesia",
-                        penjelasan: "Lambang: Pohon Beringin. Warna: Hitam."
-                    }
-                },
-                {
-                    icon: "fa-scroll",
-                    title: "UUD 1945 & Amandemen",
-                    content: "Memahami konstitusi negara, sistem pemerintahan, hak dan kewajiban warga negara, serta perubahan UUD 1945.",
-                    tips: [
-                        "Ketahui 3 kali perubahan UUD (1949, 1950, kembali ke 1945)",
-                        "Pahami 4 amandemen UUD 1945 (1999-2002)",
-                        "Hafalkan pasal-pasal fundamental (Pasal 1, 27-34)",
-                        "Pahami sistem checks and balances antar lembaga negara"
-                    ],
-                    example: {
-                        soal: "Pasal berapa yang menyebutkan 'Negara berdasar atas hukum'?",
-                        jawaban: "Pasal 1 Ayat (3)",
-                        penjelasan: "Ini adalah pasal fundamental yang menegaskan Indonesia sebagai negara hukum."
-                    }
-                },
-                {
-                    icon: "fa-flag",
-                    title: "Sejarah Kemerdekaan",
-                    content: "Peristiwa penting sejarah perjuangan bangsa Indonesia dari masa kolonial hingga proklamasi kemerdekaan.",
-                    tips: [
-                        "Hafalkan tanggal-tanggal penting (17 Agustus 1945, 10 November 1945, dll)",
-                        "Ketahui tokoh-tokoh perjuangan di setiap daerah",
-                        "Pahami perbedaan BPUPKI dan PPKI",
-                        "Ketahui isi teks Proklamasi lengkap"
-                    ],
-                    example: {
-                        soal: "Siapa yang mengetik naskah proklamasi?",
-                        jawaban: "Sayuti Melik",
-                        penjelasan: "Naskah asli ditulis tangan oleh Soekarno, lalu diketik oleh Sayuti Melik."
-                    }
-                },
-                {
-                    icon: "fa-users",
-                    title: "Proklamator & Pahlawan",
-                    content: "Mengenal para tokoh pendiri bangsa, pahlawan nasional, dan kontribusi mereka dalam perjuangan kemerdekaan.",
-                    tips: [
-                        "Soekarno-Hatta sebagai proklamator",
-                        "Ketahui latar belakang dan peran tokoh-tokoh penting",
-                        "Pahami perbedaan pahlawan revolusi dan pahlawan nasional",
-                        "Ketahui daerah asal dan jasa tokoh-tokoh daerah"
-                    ],
-                    example: {
-                        soal: "Siapa Ketua BPUPKI?",
-                        jawaban: "Dr. Radjiman Wedyodiningrat",
-                        penjelasan: "BPUPKI dibentuk 29 April 1945 dengan ketua Radjiman Wedyodiningrat."
-                    }
-                },
-                {
-                    icon: "fa-landmark",
-                    title: "Sistem Pemerintahan",
-                    content: "Memahami struktur dan fungsi lembaga negara, pembagian kekuasaan, dan hubungan antar lembaga tinggi negara.",
-                    tips: [
-                        "Pahami 3 lembaga tinggi negara: Eksekutif, Legislatif, Yudikatif",
-                        "Ketahui fungsi DPR, DPD, dan MPR",
-                        "Pahami mekanisme pemilihan presiden dan wakil presiden",
-                        "Ketahui struktur pemerintahan daerah (provinsi, kabupaten/kota)"
-                    ],
-                    example: {
-                        soal: "Berapa jumlah anggota DPD RI?",
-                        jawaban: "136 orang (4 per provinsi)",
-                        penjelasan: "DPD mewakili daerah dengan 4 orang per provinsi, tidak dipecah per partai."
-                    }
-                }
-            ]
-        };
-
-        // Data Materi Pengetahuan Umum
-        const materiPU = {
-            title: "Pengetahuan Umum & Terkini",
-            type: "pu",
-            sections: [
-                {
-                    icon: "fa-mountain",
-                    title: "Geografi Indonesia",
-                    content: "Menguasai letak geografis, bentang alam, iklim, dan kekayaan alam Indonesia sebagai negara maritim.",
-                    tips: [
-                        "Hafalkan 5 pulau besar Indonesia (Sumatera, Jawa, Kalimantan, Sulawesi, Papua)",
-                        "Ketahui 34 provinsi dan ibukotanya",
-                        "Pahami garis khatulistiwa memotong Indonesia",
-                        "Ketahui gunung tertinggi, danau terbesar, sungai terpanjang"
-                    ],
-                    example: {
-                        soal: "Danau terbesar di Indonesia adalah?",
-                        jawaban: "Danau Toba (Sumatera Utara)",
-                        penjelasan: "Danau Toba adalah danau vulkanik terbesar di dunia."
-                    }
-                },
-                {
-                    icon: "fa-chart-line",
-                    title: "Ekonomi & Sosial",
-                    content: "Memahami kondisi ekonomi Indonesia, sistem sosial budaya, dan isu-isu pembangunan nasional.",
-                    tips: [
-                        "Ketahui sektor-sektor ekonomi utama Indonesia",
-                        "Pahami program-program pemerintah (PKH, BPJS, dll)",
-                        "Ketahui indeks pembangunan manusia (IPM) Indonesia",
-                        "Pahami demografi dan bonus demografi Indonesia"
-                    ],
-                    example: {
-                        soal: "Apa kepanjangan UMKM?",
-                        jawaban: "Usaha Mikro, Kecil, dan Menengah",
-                        penjelasan: "UMKM adalah tulang punggung ekonomi Indonesia yang menyerap tenaga kerja terbanyak."
-                    }
-                },
-                {
-                    icon: "fa-flask",
-                    title: "Sains & Teknologi",
-                    content: "Pengetahuan dasar sains, perkembangan teknologi, dan inovasi-inovasi Indonesia di bidang iptek.",
-                    tips: [
-                        "Ketahui satelit-satelit milik Indonesia (Palapa, Telkom, Lapan)",
-                        "Pahami perkembangan teknologi informasi dan digital",
-                        "Ketahui penemuan-penemuan penting dunia",
-                        "Pahami isu-isu lingkungan dan energi terbarukan"
-                    ],
-                    example: {
-                        soal: "Satelit pertama Indonesia adalah?",
-                        jawaban: "Palapa A1 (1976)",
-                        penjelasan: "Diluncurkan 8 Juli 1976 dari Cape Canaveral, AS."
-                    }
-                },
-                {
-                    icon: "fa-theater-masks",
-                    title: "Budaya & Tradisi",
-                    content: "Keberagaman budaya Indonesia, seni tradisional, upacara adat, dan warisan budaya tak benda.",
-                    tips: [
-                        "Ketahui 7 keajaiban dunia termasuk Candi Borobudur",
-                        "Pahami sistem kekerabatan dan adat istiadat daerah",
-                        "Ketahui alat musik dan tarian tradisional dari berbagai daerah",
-                        "Pahami filosofi dan makna di balik seni tradisional"
-                    ],
-                    example: {
-                        soal: "Tari Saman berasal dari daerah?",
-                        jawaban: "Aceh (Gayo)",
-                        penjelasan: "Tari Saman adalah tarian tradisional Suku Gayo yang dilakukan secara berkelompok."
-                    }
-                },
-                {
-                    icon: "fa-newspaper",
-                    title: "Berita Terkini",
-                    content: "Memantau perkembangan terbaru nasional dan internasional, kebijakan pemerintah, dan isu-isu aktual.",
-                    tips: [
-                        "Baca koran/portal berita nasional secara rutin",
-                        "Perhatikan kebijakan pemerintah terbaru",
-                        "Ketahui tokoh-tokoh penting saat ini",
-                        "Pahami isu-isu global yang berdampak pada Indonesia"
-                    ],
-                    example: {
-                        soal: "Ibu kota negara Indonesia saat ini adalah?",
-                        jawaban: "Jakarta (sedang proses pemindahan ke IKN Nusantara)",
-                        penjelasan: "IKN Nusantara di Kalimantan Timur direncanakan menjadi ibu kota baru."
-                    }
-                }
-            ]
-        };
-
-        // Bank Soal Psikotes
-        const soalPsikotes = [
-            { q: "3, 6, 12, 24, ...", options: ["36", "48", "42", "30"], correct: 1, explanation: "Pola ×2 setiap angka." },
-            { q: "1, 4, 9, 16, 25, ...", options: ["30", "36", "42", "49"], correct: 1, explanation: "Kuadrat bilangan: 1², 2², 3², 4², 5², 6²=36." },
-            { q: "2, 5, 10, 17, 26, ...", options: ["35", "37", "40", "42"], correct: 1, explanation: "Selisih: +3, +5, +7, +9, +11. 26+11=37." },
-            { q: "Buku : Membaca = Pena : ...", options: ["Menulis", "Menggambar", "Menghapus", "Mewarnai"], correct: 0, explanation: "Alat dan fungsinya." },
-            { q: "Semua kucing adalah mamalia. Semua mamalia bernafas. Maka?", options: ["Semua kucing bernafas", "Yang bernafas kucing", "Tidak ada kucing mamalia", "Semua mamalia kucing"], correct: 0, explanation: "Silogisme: kucing → mamalia → bernafas." },
-            { q: "Jika A>B dan B>C, maka?", options: ["A>C", "C>A", "A=C", "Tidak bisa ditentukan"], correct: 0, explanation: "Transitif: A>B>C berarti A>C." },
-            { q: "25% dari 240 adalah?", options: ["50", "60", "70", "80"], correct: 1, explanation: "25% = 1/4. 240/4 = 60." },
-            { q: "Berlawanan dari 'Optimis' adalah?", options: ["Pesimis", "Realistis", "Idealistis", "Materialistis"], correct: 0, explanation: "Antonim: Optimis ↔ Pesimis." },
-            { q: "2, 3, 5, 7, 11, ...", options: ["12", "13", "14", "15"], correct: 1, explanation: "Bilangan prima: 2, 3, 5, 7, 11, 13." },
-            { q: "Mobil : Bensin = Manusia : ...", options: ["Makanan", "Udara", "Air", "Tanah"], correct: 0, explanation: "Bahan bakar/energi." },
-            { q: "Jika 3 orang makan 3 kue dalam 3 menit, berapa menit 30 orang makan 30 kue?", options: ["3", "30", "10", "90"], correct: 0, explanation: "1 orang 1 kue 3 menit. 30 orang 30 kue tetap 3 menit." },
-            { q: "Manakah yang berbeda?", options: ["Jakarta", "Surabaya", "Bandung", "Malaysia"], correct: 3, explanation: "Malaysia adalah negara, lainnya kota di Indonesia." },
-            { q: "64, 32, 16, 8, ...", options: ["2", "4", "6", "0"], correct: 1, explanation: "Pola ÷2 setiap angka." },
-            { q: "Ayah : Anak = Pohon : ...", options: ["Daun", "Ranting", "Buah", "Batang"], correct: 1, explanation: "Hubungan induk-keturunan." },
-            { q: "Jika semua A adalah B, dan semua B adalah C, maka?", options: ["Semua A adalah C", "Semua C adalah A", "Tidak ada A yang C", "Semua B adalah A"], correct: 0, explanation: "Transitif." },
-            { q: "1, 1, 2, 3, 5, 8, ...", options: ["11", "12", "13", "14"], correct: 2, explanation: "Fibonacci: 5+8=13." },
-            { q: "Lawan kata 'Heterogen' adalah?", options: ["Homogen", "Harmonis", "Identik", "Seragam"], correct: 0, explanation: "Heterogen (berbeda) ↔ Homogen (sama)." },
-            { q: "36, 49, 64, 81, ...", options: ["90", "100", "96", "121"], correct: 1, explanation: "Kuadrat: 6², 7², 8², 9², 10²=100." },
-            { q: "Dokter : Pasien = Guru : ...", options: ["Sekolah", "Pelajaran", "Murid", "Papan tulis"], correct: 2, explanation: "Profesi dan objek layanannya." },
-            { q: "Jika 5 mesin membuat 5 baju dalam 5 menit, 100 mesin membuat 100 baju dalam?", options: ["5 menit", "100 menit", "20 menit", "500 menit"], correct: 0, explanation: "1 mesin 1 baju 5 menit. 100 mesin 100 baju 5 menit." }
+        // Data
+        const weeks = [
+            { week: 1, pushup: 10, situp: 10, squat: 15, plank: '30 detik', pullup: 'Max (3)', lari: '2 km' },
+            { week: 2, pushup: 15, situp: 15, squat: 20, plank: '45 detik', pullup: 'Max (5)', lari: '2.5 km' },
+            { week: 3, pushup: 20, situp: 20, squat: 25, plank: '60 detik', pullup: 'Max (6)', lari: '3 km' },
+            { week: 4, pushup: 25, situp: 25, squat: 30, plank: '75 detik', pullup: 'Max (8)', lari: '3.5 km' },
+            { week: 5, pushup: 30, situp: 30, squat: 35, plank: '90 detik', pullup: 'Max (10)', lari: '4 km' },
+            { week: 6, pushup: 35, situp: 35, squat: 40, plank: '120 detik', pullup: 'Max (12)', lari: '5 km' }
         ];
 
-        // Bank Soal Wawasan Negara
-        const soalWN = [
-            { q: "Siapa penulis naskah asli Proklamasi?", options: ["Soekarno", "Hatta", "Sjahrir", "Sayuti Melik"], correct: 0, explanation: "Soekarno menulis tangan naskah proklamasi." },
-            { q: "Tanggal berapa Pancasila dirumuskan secara resmi?", options: ["17 Agustus 1945", "18 Agustus 1945", "1 Juni 1945", "10 November 1945"], correct: 2, explanation: "1 Juni 1945 adalah hari lahir Pancasila (Pidato Soekarno)." },
-            { q: "Berapa jumlah provinsi di Indonesia saat ini?", options: ["32", "33", "34", "35"], correct: 2, explanation: "Indonesia memiliki 34 provinsi (termasuk DKI Jakarta)." },
-            { q: "Siapa yang membacakan teks Proklamasi?", options: ["Soekarno", "Hatta", "Sjahrir", "Ki Hajar Dewantara"], correct: 0, explanation: "Soekarno membacakan proklamasi, Hatta menandatangani." },
-            { q: "Apa nama ibukota Indonesia yang baru sedang dibangun?", options: ["Palangkaraya", "Pontianak", "IKN Nusantara", "Samarinda"], correct: 2, explanation: "Ibu Kota Negara (IKN) Nusantara di Kalimantan Timur." },
-            { q: "Pasal berapa yang menyebutkan 'Kemerdekaan adalah hak segala bangsa'?", options: ["Pasal 1", "Pasal 28", "Pasal 33", "Pembukaan UUD"], correct: 3, explanation: "Tertera dalam Pembukaan UUD 1945 alinea pertama." },
-            { q: "Siapa Presiden ke-7 Indonesia?", options: ["SBY", "Jokowi", "Megawati", "Habibie"], correct: 1, explanation: "Joko Widodo (Jokowi) adalah Presiden ke-7." },
-            { q: "Apa lambang Sila ke-5 Pancasila?", options: ["Bintang", "Rantai", "Padi dan Kapas", "Kepala Banteng"], correct: 2, explanation: "Sila ke-5 Keadilan Sosial, lambang Padi dan Kapas." },
-            { q: "Tahun berapa Indonesia merdeka?", options: ["1942", "1945", "1949", "1950"], correct: 1, explanation: "17 Agustus 1945." },
-            { q: "Siapa pencipta lagu Indonesia Raya?", options: ["WR Supratman", "Ismail Marzuki", "Kusbini", "Liem Koen Hian"], correct: 0, explanation: "Wage Rudolf Soepratman (WR Supratman)." },
-            { q: "Apa warna dasar bendera Indonesia?", options: ["Merah Putih", "Putih Merah", "Merah", "Putih"], correct: 0, explanation: "Merah di atas, Putih di bawah." },
-            { q: "Berapa jumlah anggota DPR RI?", options: ["500", "560", "575", "600"], correct: 2, explanation: "575 anggota DPR periode 2019-2024." },
-            { q: "Siapa yang mencetuskan konsep Marhaenisme?", options: ["Soekarno", "Hatta", "Sjahrir", "Tan Malaka"], correct: 0, explanation: "Soekarno mengembangkan sosialisme a la Indonesia." },
-            { q: "Apa nama mata uang Indonesia?", options: ["Ringgit", "Peso", "Rupiah", "Baht"], correct: 2, explanation: "Rupiah (IDR)." },
-            { q: "Tanggal berapa Hari Pahlawan?", options: ["10 November", "17 Agustus", "1 Juni", "20 Mei"], correct: 0, explanation: "10 November (Pertempuran Surabaya 1945)." },
-            { q: "Siapa Menteri Pertahanan Indonesia 2024?", options: ["Prabowo Subianto", "Ryamizard Ryacudu", "Mahfud MD", "Luhut Binsar"], correct: 0, explanation: "Prabowo Subianto menjabat Menhan." },
-            { q: "Apa kepanjangan NKRI?", options: ["Negara Kesatuan Republik Indonesia", "Negara Komunitas Republik Indonesia", "Negara Keadilan Republik Indonesia", "Negara Kebangsaan Republik Indonesia"], correct: 0, explanation: "Negara Kesatuan Republik Indonesia." },
-            { q: "Berapa sila dalam Pancasila?", options: ["3", "4", "5", "6"], correct: 2, explanation: "Pancasila terdiri dari 5 sila." },
-            { q: "Siapa Ketua Mahkamah Agung RI?", options: ["Muhammad Syarifuddin", "Anwar Usman", "Hatta Ali", "Suryadi"], correct: 0, explanation: "Prof. Dr. Muhammad Syarifuddin, S.H., M.H." },
-            { q: "Apa nama samudra terbesar di Indonesia?", options: ["Samudra Hindia", "Samudra Pasifik", "Samudra Atlantik", "Laut Cina Selatan"], correct: 0, explanation: "Samudra Hindia membatasi Indonesia di selatan dan barat." }
+        const restQuotes = [
+            "Istirahat bukanlah tanda lemah, tapi strategi untuk serangan yang lebih kuat besok.",
+            "Otot tumbuh saat istirahat, bukan saat latihan. Hormati proses recovery ini.",
+            "Seperti prajurit yang mengasah pedangnya, gunakan hari ini untuk mempersiapkan diri.",
+            "Recovery adalah bagian dari latihan. Lakukan dengan penuh kesadaran.",
+            "Hari ini istirahat, besok kita menyerang lebih keras!",
+            "Keseimbangan adalah kunci. Terlalu banyak latihan tanpa istirahat akan menyebabkan cedera."
         ];
 
-        // Bank Soal Pengetahuan Umum
-        const soalPU = [
-            { q: "Gunung tertinggi di Indonesia adalah?", options: ["Gunung Semeru", "Gunung Kerinci", "Gunung Rinjani", "Puncak Jaya"], correct: 3, explanation: "Puncak Jaya (Carstensz Pyramid) 4.884 mdpl di Papua." },
-            { q: "Danau terbesar di Indonesia adalah?", options: ["Danau Toba", "Danau Maninjau", "Danau Sentani", "Danau Tempe"], correct: 0, explanation: "Danau Toba di Sumatera Utara." },
-            { q: "Pulau terbesar di Indonesia adalah?", options: ["Jawa", "Sumatera", "Kalimantan", "Sulawesi"], correct: 2, explanation: "Kalimantan (Borneo) adalah pulau terbesar." },
-            { q: "Apa ibukota provinsi Papua?", options: ["Jayapura", "Manokwari", "Merauke", "Biak"], correct: 0, explanation: "Jayapura." },
-            { q: "Berapa jumlah pulau di Indonesia (perkiraan)?", options: ["13.000", "17.000", "10.000", "20.000"], correct: 1, explanation: "Sekitar 17.000 pulau." },
-            { q: "Apa nama satelit pertama Indonesia?", options: ["Telkom-1", "Palapa A1", "Lapan-TUBsat", "Sinar-1"], correct: 1, explanation: "Palapa A1 diluncurkan 1976." },
-            { q: "Candi Borobudur terletak di provinsi?", options: ["Jawa Timur", "Jawa Tengah", "Jawa Barat", "DIY"], correct: 1, explanation: "Magelang, Jawa Tengah." },
-            { q: "Apa mata uang Jepang?", options: ["Won", "Yen", "Yuan", "Ringgit"], correct: 1, explanation: "Yen (¥)." },
-            { q: "Siapa penemu bola lampu?", options: ["Thomas Edison", "Nikola Tesla", "Alexander Bell", "Albert Einstein"], correct: 0, explanation: "Thomas Alva Edison." },
-            { q: "Berapa jumlah tulang manusia dewasa?", options: ["206", "208", "210", "212"], correct: 0, explanation: "206 tulang (bayi sekitar 270)." },
-            { q: "Apa nama unsur kimia dengan simbol Au?", options: ["Perak", "Emas", "Tembaga", "Aluminium"], correct: 1, explanation: "Au (Aurum) adalah emas." },
-            { q: "Planet terbesar di tata surya adalah?", options: ["Bumi", "Mars", "Jupiter", "Saturnus"], correct: 2, explanation: "Jupiter." },
-            { q: "Apa nama laut antara Kalimantan dan Sulawesi?", options: ["Laut Jawa", "Laut Maluku", "Laut Sulawesi", "Laut Seram"], correct: 0, explanation: "Laut Jawa (meski sebagian menyebut Laut Makassar)." },
-            { q: "Siapa penulis novel 'Laskar Pelangi'?", options: ["Andrea Hirata", "Habiburrahman", "Dee Lestari", "Leila Chudori"], correct: 0, explanation: "Andrea Hirata." },
-            { q: "Apa nama alat musik tradisional dari Jawa Barat?", options: ["Angklung", "Gamelan", "Sasando", "Tifa"], correct: 0, explanation: "Angklung." },
-            { q: "Berapa jumlah warna dalam pelangi?", options: ["5", "6", "7", "8"], correct: 2, explanation: "Merah, Jingga, Kuning, Hijau, Biru, Nila, Ungu (7)." },
-            { q: "Apa nama ibukota Malaysia?", options: ["Singapura", "Kuala Lumpur", "Bangkok", "Jakarta"], correct: 1, explanation: "Kuala Lumpur." },
-            { q: "Siapa presiden pertama Amerika Serikat?", options: ["Abraham Lincoln", "George Washington", "Thomas Jefferson", "John Adams"], correct: 1, explanation: "George Washington." },
-            { q: "Apa nama zat yang membuat daun hijau?", options: ["Klorofil", "Karoten", "Antosianin", "Melanin"], correct: 0, explanation: "Klorofil (pigmen hijau)." },
-            { q: "Berapa hari dalam setahun (non kabisat)?", options: ["364", "365", "366", "367"], correct: 1, explanation: "365 hari." }
-        ];
-
-        let currentQuiz = [];
-        let currentQuestion = 0;
-        let userAnswers = [];
-        let quizTimer;
-        let timeLeft = 300; // 5 menit
-        let currentQuizType = '';
+        let completed = JSON.parse(localStorage.getItem('completed') || '{}');
 
         // Navigation
-        function showSection(sectionId) {
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-        }
-
-        // Jadwal Functions (simplified)
-        const programData = {
-            weeks: Array.from({length: 6}, (_, i) => ({
-                week: i + 1,
-                pushup: 10 + (i * 5),
-                situp: 10 + (i * 5),
-                squat: 15 + (i * 5),
-                lari: `${2 + (i * 0.6)} km`
-            }))
-        };
-
-        function renderJadwal() {
-            const container = document.getElementById('jadwalContainer');
-            container.innerHTML = '<div class="materi-container">' + 
-                programData.weeks.map(week => `
-                <div class="materi-card" onclick="alert('Minggu ${week.week}: Push Up ${week.pushup}x, Sit Up ${week.situp}x, Squat ${week.squat}x, Lari ${week.lari}')">
-                    <div class="materi-header">
-                        <i class="fas fa-dumbbell materi-icon" style="color: var(--apple-green);"></i>
-                        <h3 class="materi-title">Minggu ${week.week}</h3>
-                    </div>
-                    <div class="materi-content">
-                        <ul class="materi-list">
-                            <li><i class="fas fa-check" style="color: var(--apple-green);"></i> Push Up: ${week.pushup}x</li>
-                            <li><i class="fas fa-check" style="color: var(--apple-green);"></i> Sit Up: ${week.situp}x</li>
-                            <li><i class="fas fa-check" style="color: var(--apple-green);"></i> Squat: ${week.squat}x</li>
-                            <li><i class="fas fa-check" style="color: var(--apple-green);"></i> Lari: ${week.lari}</li>
-                        </ul>
-                    </div>
-                </div>
-            `).join('') + '</div>';
-        }
-
-        // Materi Detail Functions
-        function openMateriDetail(type) {
-            const modal = document.getElementById('materiModal');
-            const content = document.getElementById('materiContent');
-            let data;
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
             
-            switch(type) {
-                case 'psikotes': data = materiPsikotes; break;
-                case 'wn': data = materiWN; break;
-                case 'pu': data = materiPU; break;
-            }
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            if (page === 'jadwal') renderWeeks();
+        }
 
-            content.innerHTML = `
-                <div class="detail-header ${data.type}">
-                    <div>
-                        <h2 class="detail-title">${data.title}</h2>
-                        <p style="color: var(--text-gray); margin-top: 0.5rem;">Pelajari materi dengan seksama sebelum mencoba tryout</p>
+        // Render Weeks
+        function renderWeeks() {
+            const container = document.getElementById('weekList');
+            container.innerHTML = weeks.map(w => `
+                <div class="card week" onclick="openWeek(${w.week})">
+                    <div class="card-header">
+                        <i class="fas fa-calendar-week card-icon"></i>
+                        <div class="card-title">Minggu ${w.week}</div>
+                        <div class="card-sub">Program Latihan</div>
                     </div>
-                    <button class="close-btn" onclick="closeMateri()">
-                        <i class="fas fa-times"></i>
-                    </button>
+                    <div class="card-body">
+                        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <span>Push Up</span>
+                            <span style="color: var(--green); font-weight: 700;">${w.pushup} × 3</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <span>Sit Up</span>
+                            <span style="color: var(--green); font-weight: 700;">${w.situp} × 3</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span>Lari</span>
+                            <span style="color: var(--green); font-weight: 700;">${w.lari}</span>
+                        </div>
+                        <button class="btn btn-green" style="margin-top: 0.75rem;">Lihat Jadwal</button>
+                    </div>
                 </div>
-                <div class="detail-body">
-                    ${data.sections.map(section => `
-                        <div class="sub-materi-card">
-                            <div class="sub-materi-header">
-                                <div class="sub-materi-icon">
-                                    <i class="fas ${section.icon}"></i>
-                                </div>
-                                <h3 class="sub-materi-title">${section.title}</h3>
-                            </div>
-                            <p class="sub-materi-desc">${section.content}</p>
-                            
-                            <div class="tips-box">
-                                <div class="tips-title">
-                                    <i class="fas fa-lightbulb"></i> Tips & Trik
-                                </div>
-                                <ul style="margin-left: 1.5rem; color: var(--text-gray);">
-                                    ${section.tips.map(tip => `<li style="margin-bottom: 0.5rem;">${tip}</li>`).join('')}
-                                </ul>
-                            </div>
+            `).join('');
+        }
 
-                            <div class="example-box">
-                                <div class="example-title">Contoh Soal</div>
-                                <p style="font-weight: 700; margin-bottom: 0.5rem; color: white;">${section.example.soal}</p>
-                                <p style="color: var(--apple-green); margin-bottom: 0.5rem;">
-                                    <i class="fas fa-check-circle"></i> Jawaban: ${section.example.jawaban}
-                                </p>
-                                <p style="color: var(--text-gray); font-size: 0.9rem;">${section.example.penjelasan}</p>
+        // Open Week
+        function openWeek(weekNum) {
+            const w = weeks.find(x => x.week === weekNum);
+            const modal = document.getElementById('scheduleModal');
+            const body = document.getElementById('scheduleBody');
+            
+            document.getElementById('scheduleTitle').textContent = `Minggu ${weekNum}`;
+            
+            const days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+            
+            body.innerHTML = days.map((day, i) => {
+                const isRest = day === 'Rabu' || day === 'Minggu';
+                const key = `w${weekNum}_${day}`;
+                
+                if (isRest) {
+                    return `
+                        <div class="day-card rest">
+                            <div class="day-header">
+                                <div class="day-name">${day}</div>
+                                <span class="day-badge">Rest Day</span>
+                            </div>
+                            <div class="rest-box">
+                                <i class="fas fa-coffee rest-icon"></i>
+                                <div style="font-family: 'Black Ops One', cursive; color: #f59e0b; margin-bottom: 0.5rem;">Waktunya Istirahat!</div>
+                                <div style="color: var(--gray); font-size: 0.9rem; font-style: italic;">"${restQuotes[(weekNum + i) % restQuotes.length]}"</div>
                             </div>
                         </div>
-                    `).join('')}
-
-                    <div class="tryout-section">
-                        <i class="fas fa-clipboard-check tryout-icon"></i>
-                        <h3 class="tryout-title">Siap Menguji Kemampuan?</h3>
-                        <p class="tryout-desc">
-                            Tryout terdiri dari 20 soal dengan waktu 5 menit.<br>
-                            Nilai kelulusan: <strong>≥ 61</strong>
-                        </p>
-                        <button class="btn-tryout" onclick="startQuiz('${type}')">
-                            <i class="fas fa-play"></i> Mulai Tryout
-                        </button>
+                    `;
+                }
+                
+                return `
+                    <div class="day-card">
+                        <div class="day-header">
+                            <div class="day-name">${day}</div>
+                            <span class="day-badge">Training</span>
+                        </div>
+                        ${renderExercise('Push Up', w.pushup, key)}
+                        ${renderExercise('Sit Up', w.situp, key)}
+                        ${renderExercise('Squat', w.squat, key)}
+                        ${renderExercise('Plank', w.plank, key)}
+                        ${renderExercise('Pull Up', w.pullup, key)}
+                        ${renderExercise('Lari', w.lari, key)}
                     </div>
+                `;
+            }).join('');
+            
+            modal.classList.add('active');
+        }
+
+        function renderExercise(name, value, key) {
+            const isChecked = completed[key] || false;
+            return `
+                <div class="exercise-row">
+                    <div>
+                        <div style="font-weight: 600;">${name}</div>
+                        <div style="font-size: 0.8rem; color: var(--gray);">${value}</div>
+                    </div>
+                    <div class="checkbox ${isChecked ? 'checked' : ''}" onclick="toggleCheck('${key}', this)">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleCheck(key, el) {
+            if (completed[key]) {
+                delete completed[key];
+                el.classList.remove('checked');
+            } else {
+                completed[key] = true;
+                el.classList.add('checked');
+            }
+            localStorage.setItem('completed', JSON.stringify(completed));
+        }
+
+        // Materi Data
+        const materiData = {
+            psikotes: {
+                title: 'Materi Psikotes',
+                color: 'blue',
+                sections: [
+                    {
+                        icon: 'fa-calculator',
+                        title: 'Tes Logika Numerik',
+                        desc: 'Tes logika numerik menguji kemampuan berpikir analitis dan pola pikir matematis. Dalam konteks militer, kemampuan ini penting untuk pengambilan keputusan taktis yang memerlukan perhitungan cepat.',
+                        tips: [
+                            'Perhatikan selisih antar angka - apakah konstan, bertambah, atau berkelipat?',
+                            'Cari pola operasi: penjumlahan, pengurangan, perkalian, atau pembagian',
+                            'Perhatikan pola ganjil-genap atau pola berkelompok',
+                            'Untuk deret kompleks, pisahkan pola posisi ganjil dan genap'
+                        ],
+                        q: '2, 4, 8, 16, ...',
+                        a: '32',
+                        e: 'Deret geometri dengan rasio 2. Setiap angka dikalikan 2.'
+                    },
+                    {
+                        icon: 'fa-eye',
+                        title: 'Tes Kecermatan (Kraepelin)',
+                        desc: 'Tes ini menguji ketahanan konsentrasi dan kecepatan berhitung. Anda akan menjumlahkan dua angka berdampingan secara berurutan dari atas ke bawah.',
+                        tips: [
+                            'Kerjakan dari atas ke bawah secara sistematis',
+                            'Fokus hanya pada dua angka yang sedang dijumlahkan',
+                            'Hasil dua digit? Tulis hanya angka satuan (belakang)',
+                            'Gunakan jari sebagai penunjuk untuk menjaga fokus'
+                        ],
+                        q: '7 8 5 3 9 (jumlahkan berdampingan)',
+                        a: '5, 3, 8, 2',
+                        e: '7+8=15(tulis 5), 8+5=13(tulis 3), 5+3=8, 3+9=12(tulis 2)'
+                    },
+                    {
+                        icon: 'fa-search',
+                        title: 'Tes Ketelitian',
+                        desc: 'Menguji kemampuan memperhatikan detail kecil dan membedakan informasi yang hampir sama. Penting untuk membaca peta dan mengenali target.',
+                        tips: [
+                            'Kerjakan sistematis dari kiri ke kanan, atas ke bawah',
+                            'Perhatikan detail kecil: titik, koma, spasi',
+                            'Bandingkan karakter per karakter',
+                            'Jangan terburu-buru, ketelitian > kecepatan'
+                        ],
+                        q: 'Temukan yang berbeda: 8975301 vs 8975310',
+                        a: '8975310 (digit terakhir 0, bukan 1)',
+                        e: 'Perhatikan digit terakhir: 0 vs 1'
+                    },
+                    {
+                        icon: 'fa-font',
+                        title: 'Tes Kemampuan Verbal',
+                        desc: 'Menguji pemahaman bahasa, kosa kata, dan logika verbal termasuk sinonim, antonim, dan analogi.',
+                        tips: [
+                            'Perbanyak bacaan untuk menambah kosakata',
+                            'Untuk analogi: cari hubungan spesifik pasangan pertama',
+                            'Perhatikan konteks kalimat untuk sinonim',
+                            'Hafalkan antonim umum yang sering muncul'
+                        ],
+                        q: 'MURAH : MAHAL = BANYAK : ?',
+                        a: 'SEDIKIT',
+                        e: 'Murah lawan mahal, maka lawan banyak adalah sedikit'
+                    },
+                    {
+                        icon: 'fa-shapes',
+                        title: 'Tes Figural',
+                        desc: 'Menguji kemampuan spasial dan logika visual melalui pola gambar, rotasi, dan hubungan bentuk geometris.',
+                        tips: [
+                            'Perhatikan perubahan bentuk antar frame',
+                            'Identifikasi rotasi (putaran) atau refleksi (cermin)',
+                            'Cari pola pengulangan atau penambahan elemen',
+                            'Perhatikan ukuran, posisi, dan jumlah elemen'
+                        ],
+                        q: 'Segitiga → Segitiga terbalik → ?',
+                        a: 'Segitiga normal',
+                        e: 'Pola rotasi 180 derajat berulang'
+                    }
+                ]
+            },
+            wn: {
+                title: 'Wawasan Negara',
+                color: 'red',
+                sections: [
+                    {
+                        icon: 'fa-star',
+                        title: 'Pancasila',
+                        desc: 'Pancasila adalah dasar negara dan ideologi bangsa Indonesia. Menguasai nilai-nilai luhur Pancasila sangat penting untuk tes wawasan kebangsaan.',
+                        tips: [
+                            'Hafalkan 5 sila beserta lambangnya',
+                            'Pahami makna mendalam setiap sila',
+                            'Ketahui sejarah perumusan (18 Agustus 1945)',
+                            'Pahami hubungan Pancasila dengan UUD 1945'
+                        ],
+                        q: 'Sila ke-3 Pancasila berbunyi?',
+                        a: 'Persatuan Indonesia',
+                        e: 'Lambang: Pohon Beringin. Warna: Hitam.'
+                    },
+                    {
+                        icon: 'fa-scroll',
+                        title: 'UUD 1945 & Amandemen',
+                        desc: 'Memahami konstitusi negara, sistem pemerintahan, hak dan kewajiban warga negara, serta perubahan UUD 1945.',
+                        tips: [
+                            'Ketahui 3 kali perubahan UUD (1949, 1950, kembali 1945)',
+                            'Pahami 4 amandemen UUD 1945 (1999-2002)',
+                            'Hafalkan pasal-pasal fundamental (Pasal 1, 27-34)',
+                            'Pahami sistem checks and balances'
+                        ],
+                        q: 'Pasal berapa: "Negara berdasar atas hukum"?',
+                        a: 'Pasal 1 Ayat (3)',
+                        e: 'Pasal fundamental yang menegaskan Indonesia sebagai negara hukum.'
+                    },
+                    {
+                        icon: 'fa-flag',
+                        title: 'Sejarah Kemerdekaan',
+                        desc: 'Peristiwa penting sejarah perjuangan bangsa Indonesia dari masa kolonial hingga proklamasi kemerdekaan.',
+                        tips: [
+                            'Hafalkan tanggal-tanggal penting (17 Agustus 1945, 10 November 1945)',
+                            'Ketahui tokoh-tokoh perjuangan di setiap daerah',
+                            'Pahami perbedaan BPUPKI dan PPKI',
+                            'Ketahui isi teks Proklamasi lengkap'
+                        ],
+                        q: 'Siapa yang mengetik naskah proklamasi?',
+                        a: 'Sayuti Melik',
+                        e: 'Naskah asli ditulis tangan Soekarno, diketik oleh Sayuti Melik.'
+                    },
+                    {
+                        icon: 'fa-users',
+                        title: 'Proklamator & Pahlawan',
+                        desc: 'Mengenal para tokoh pendiri bangsa, pahlawan nasional, dan kontribusi mereka dalam perjuangan kemerdekaan.',
+                        tips: [
+                            'Soekarno-Hatta sebagai proklamator',
+                            'Ketahui latar belakang dan peran tokoh-tokoh penting',
+                            'Pahami perbedaan pahlawan revolusi dan pahlawan nasional',
+                            'Ketahui daerah asal dan jasa tokoh-tokoh daerah'
+                        ],
+                        q: 'Siapa Ketua BPUPKI?',
+                        a: 'Dr. Radjiman Wedyodiningrat',
+                        e: 'BPUPKI dibentuk 29 April 1945 dengan ketua Radjiman Wedyodiningrat.'
+                    },
+                    {
+                        icon: 'fa-landmark',
+                        title: 'Sistem Pemerintahan',
+                        desc: 'Memahami struktur dan fungsi lembaga negara, pembagian kekuasaan, dan hubungan antar lembaga tinggi negara.',
+                        tips: [
+                            'Pahami 3 lembaga tinggi negara: Eksekutif, Legislatif, Yudikatif',
+                            'Ketahui fungsi DPR, DPD, dan MPR',
+                            'Pahami mekanisme pemilihan presiden',
+                            'Ketahui struktur pemerintahan daerah'
+                        ],
+                        q: 'Berapa jumlah anggota DPD RI?',
+                        a: '136 orang (4 per provinsi)',
+                        e: 'DPD mewakili daerah dengan 4 orang per provinsi.'
+                    }
+                ]
+            },
+            pu: {
+                title: 'Pengetahuan Umum',
+                color: 'purple',
+                sections: [
+                    {
+                        icon: 'fa-mountain',
+                        title: 'Geografi Indonesia',
+                        desc: 'Menguasai letak geografis, bentang alam, iklim, dan kekayaan alam Indonesia sebagai negara maritim.',
+                        tips: [
+                            'Hafalkan 5 pulau besar Indonesia',
+                            'Ketahui 34 provinsi dan ibukotanya',
+                            'Pahami garis khatulistiwa memotong Indonesia',
+                            'Ketahui gunung tertinggi, danau terbesar, sungai terpanjang'
+                        ],
+                        q: 'Danau terbesar di Indonesia adalah?',
+                        a: 'Danau Toba (Sumatera Utara)',
+                        e: 'Danau Toba adalah danau vulkanik terbesar di dunia.'
+                    },
+                    {
+                        icon: 'fa-chart-line',
+                        title: 'Ekonomi & Sosial',
+                        desc: 'Memahami kondisi ekonomi Indonesia, sistem sosial budaya, dan isu-isu pembangunan nasional.',
+                        tips: [
+                            'Ketahui sektor-sektor ekonomi utama Indonesia',
+                            'Pahami program-program pemerintah (PKH, BPJS)',
+                            'Ketahui indeks pembangunan manusia (IPM) Indonesia',
+                            'Pahami demografi dan bonus demografi Indonesia'
+                        ],
+                        q: 'Apa kepanjangan UMKM?',
+                        a: 'Usaha Mikro, Kecil, dan Menengah',
+                        e: 'UMKM adalah tulang punggung ekonomi Indonesia.'
+                    },
+                    {
+                        icon: 'fa-flask',
+                        title: 'Sains & Teknologi',
+                        desc: 'Pengetahuan dasar sains, perkembangan teknologi, dan inovasi-inovasi Indonesia di bidang iptek.',
+                        tips: [
+                            'Ketahui satelit-satelit milik Indonesia (Palapa, Telkom, Lapan)',
+                            'Pahami perkembangan teknologi informasi dan digital',
+                            'Ketahui penemuan-penemuan penting dunia',
+                            'Pahami isu-isu lingkungan dan energi terbarukan'
+                        ],
+                        q: 'Satelit pertama Indonesia adalah?',
+                        a: 'Palapa A1 (1976)',
+                        e: 'Diluncurkan 8 Juli 1976 dari Cape Canaveral, AS.'
+                    },
+                    {
+                        icon: 'fa-theater-masks',
+                        title: 'Budaya & Tradisi',
+                        desc: 'Keberagaman budaya Indonesia, seni tradisional, upacara adat, dan warisan budaya tak benda.',
+                        tips: [
+                            'Ketahui 7 keajaiban dunia termasuk Candi Borobudur',
+                            'Pahami sistem kekerabatan dan adat istiadat daerah',
+                            'Ketahui alat musik dan tarian tradisional dari berbagai daerah',
+                            'Pahami filosofi dan makna di balik seni tradisional'
+                        ],
+                        q: 'Tari Saman berasal dari daerah?',
+                        a: 'Aceh (Gayo)',
+                        e: 'Tari Saman adalah tarian tradisional Suku Gayo.'
+                    },
+                    {
+                        icon: 'fa-newspaper',
+                        title: 'Berita Terkini',
+                        desc: 'Memantau perkembangan terbaru nasional dan internasional, kebijakan pemerintah, dan isu-isu aktual.',
+                        tips: [
+                            'Baca koran/portal berita nasional secara rutin',
+                            'Perhatikan kebijakan pemerintah terbaru',
+                            'Ketahui tokoh-tokoh penting saat ini',
+                            'Pahami isu-isu global yang berdampak pada Indonesia'
+                        ],
+                        q: 'Ibu kota negara Indonesia yang baru?',
+                        a: 'IKN Nusantara (Kalimantan Timur)',
+                        e: 'IKN Nusantara sedang dibangun sebagai ibu kota baru.'
+                    }
+                ]
+            }
+        };
+
+        // Open Materi
+        function openMateri(type) {
+            const data = materiData[type];
+            const modal = document.getElementById('materiModal');
+            const header = document.getElementById('materiHeader');
+            const body = document.getElementById('materiBody');
+            
+            document.getElementById('materiTitle').textContent = data.title;
+            header.className = 'modal-header ' + data.color;
+            
+            body.innerHTML = data.sections.map(s => `
+                <div class="materi-section">
+                    <div class="materi-header">
+                        <div class="materi-icon"><i class="fas ${s.icon}"></i></div>
+                        <div class="materi-title">${s.title}</div>
+                    </div>
+                    <div class="materi-desc">${s.desc}</div>
+                    
+                    <div class="tips-box">
+                        <div class="tips-title"><i class="fas fa-lightbulb"></i> Tips & Trik</div>
+                        <ul class="tips-list">
+                            ${s.tips.map(t => `<li>${t}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-label">Contoh Soal</div>
+                        <div class="example-q">${s.q}</div>
+                        <div class="example-a">Jawaban: ${s.a}</div>
+                        <div style="color: var(--gray); font-size: 0.85rem;">${s.e}</div>
+                    </div>
+                </div>
+            `).join('') + `
+                <div class="tryout-box">
+                    <i class="fas fa-clipboard-check tryout-icon"></i>
+                    <div class="tryout-title">Siap Menguji Kemampuan?</div>
+                    <div class="tryout-desc">Tryout terdiri dari 20 soal dengan waktu 5 menit.<br>Nilai kelulusan: <strong>≥ 61</strong></div>
+                    <button class="btn btn-orange" onclick="startQuiz('${type}')"><i class="fas fa-play"></i> Mulai Tryout</button>
                 </div>
             `;
             
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
 
-        function closeMateri() {
-            document.getElementById('materiModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
         }
 
-        // Quiz Functions
+        // Quiz Data
+        const quizData = {
+            psikotes: [
+                { q: '2, 4, 8, 16, ...', options: ['24', '32', '30', '28'], correct: 1 },
+                { q: '1, 4, 9, 16, 25, ...', options: ['30', '36', '42', '49'], correct: 1 },
+                { q: '3, 5, 9, 15, 23, ...', options: ['30', '33', '31', '35'], correct: 1 },
+                { q: 'Buku : Membaca = Pena : ...', options: ['Menulis', 'Menggambar', 'Menghapus', 'Mewarnai'], correct: 0 },
+                { q: 'Semua kucing adalah mamalia. Semua mamalia bernafas. Maka?', options: ['Semua kucing bernafas', 'Yang bernafas kucing', 'Tidak ada kucing mamalia', 'Semua mamalia kucing'], correct: 0 },
+                { q: 'Jika A>B dan B>C, maka?', options: ['A>C', 'C>A', 'A=C', 'Tidak bisa ditentukan'], correct: 0 },
+                { q: '25% dari 240 adalah?', options: ['50', '60', '70', '80'], correct: 1 },
+                { q: 'Berlawanan dari Optimis adalah?', options: ['Pesimis', 'Realistis', 'Idealistis', 'Materialistis'], correct: 0 },
+                { q: '2, 3, 5, 7, 11, ...', options: ['12', '13', '14', '15'], correct: 1 },
+                { q: 'Mobil : Bensin = Manusia : ...', options: ['Makanan', 'Udara', 'Air', 'Tanah'], correct: 0 },
+                { q: 'Jika 3 orang makan 3 kue dalam 3 menit, 30 orang makan 30 kue dalam?', options: ['3 menit', '30 menit', '10 menit', '90 menit'], correct: 0 },
+                { q: 'Manakah yang berbeda?', options: ['Jakarta', 'Surabaya', 'Bandung', 'Malaysia'], correct: 3 },
+                { q: '64, 32, 16, 8, ...', options: ['2', '4', '6', '0'], correct: 1 },
+                { q: 'Ayah : Anak = Pohon : ...', options: ['Daun', 'Ranting', 'Buah', 'Batang'], correct: 1 },
+                { q: 'Jika semua A adalah B, dan semua B adalah C, maka?', options: ['Semua A adalah C', 'Semua C adalah A', 'Tidak ada A yang C', 'Semua B adalah A'], correct: 0 },
+                { q: '1, 1, 2, 3, 5, 8, ...', options: ['11', '12', '13', '14'], correct: 2 },
+                { q: 'Lawan kata Heterogen adalah?', options: ['Homogen', 'Harmonis', 'Identik', 'Seragam'], correct: 0 },
+                { q: '36, 49, 64, 81, ...', options: ['90', '100', '96', '121'], correct: 1 },
+                { q: 'Dokter : Pasien = Guru : ...', options: ['Sekolah', 'Pelajaran', 'Murid', 'Papan tulis'], correct: 2 },
+                { q: 'Jika 5 mesin membuat 5 baju dalam 5 menit, 100 mesin membuat 100 baju dalam?', options: ['5 menit', '100 menit', '20 menit', '500 menit'], correct: 0 }
+            ],
+            wn: [
+                { q: 'Siapa penulis naskah asli Proklamasi?', options: ['Soekarno', 'Hatta', 'Sjahrir', 'Sayuti Melik'], correct: 0 },
+                { q: 'Tanggal berapa Pancasila dirumuskan resmi?', options: ['17 Agustus 1945', '18 Agustus 1945', '1 Juni 1945', '10 November 1945'], correct: 2 },
+                { q: 'Berapa jumlah provinsi di Indonesia?', options: ['32', '33', '34', '35'], correct: 2 },
+                { q: 'Siapa yang membacakan teks Proklamasi?', options: ['Soekarno', 'Hatta', 'Sjahrir', 'Ki Hajar Dewantara'], correct: 0 },
+                { q: 'Apa nama ibukota Indonesia yang baru?', options: ['Palangkaraya', 'Pontianak', 'IKN Nusantara', 'Samarinda'], correct: 2 },
+                { q: 'Pasal berapa: "Kemerdekaan adalah hak segala bangsa"?', options: ['Pasal 1', 'Pasal 28', 'Pasal 33', 'Pembukaan UUD'], correct: 3 },
+                { q: 'Siapa Presiden ke-7 Indonesia?', options: ['SBY', 'Jokowi', 'Megawati', 'Habibie'], correct: 1 },
+                { q: 'Apa lambang Sila ke-5 Pancasila?', options: ['Bintang', 'Rantai', 'Padi dan Kapas', 'Kepala Banteng'], correct: 2 },
+                { q: 'Tahun berapa Indonesia merdeka?', options: ['1942', '1945', '1949', '1950'], correct: 1 },
+                { q: 'Siapa pencipta lagu Indonesia Raya?', options: ['WR Supratman', 'Ismail Marzuki', 'Kusbini', 'Liem Koen Hian'], correct: 0 },
+                { q: 'Apa warna dasar bendera Indonesia?', options: ['Merah Putih', 'Putih Merah', 'Merah', 'Putih'], correct: 0 },
+                { q: 'Berapa jumlah anggota DPR RI?', options: ['500', '560', '575', '600'], correct: 2 },
+                { q: 'Siapa yang mencetuskan Marhaenisme?', options: ['Soekarno', 'Hatta', 'Sjahrir', 'Tan Malaka'], correct: 0 },
+                { q: 'Apa nama mata uang Indonesia?', options: ['Ringgit', 'Peso', 'Rupiah', 'Baht'], correct: 2 },
+                { q: 'Tanggal berapa Hari Pahlawan?', options: ['10 November', '17 Agustus', '1 Juni', '20 Mei'], correct: 0 },
+                { q: 'Siapa Menteri Pertahanan Indonesia 2024?', options: ['Prabowo Subianto', 'Ryamizard Ryacudu', 'Mahfud MD', 'Luhut Binsar'], correct: 0 },
+                { q: 'Apa kepanjangan NKRI?', options: ['Negara Kesatuan Republik Indonesia', 'Negara Komunitas Republik Indonesia', 'Negara Keadilan Republik Indonesia', 'Negara Kebangsaan Republik Indonesia'], correct: 0 },
+                { q: 'Berapa sila dalam Pancasila?', options: ['3', '4', '5', '6'], correct: 2 },
+                { q: 'Siapa Ketua Mahkamah Agung RI?', options: ['Muhammad Syarifuddin', 'Anwar Usman', 'Hatta Ali', 'Suryadi'], correct: 0 },
+                { q: 'Apa nama samudra terbesar di Indonesia?', options: ['Samudra Hindia', 'Samudra Pasifik', 'Samudra Atlantik', 'Laut Cina Selatan'], correct: 0 }
+            ],
+            pu: [
+                { q: 'Gunung tertinggi di Indonesia adalah?', options: ['Semeru', 'Kerinci', 'Rinjani', 'Puncak Jaya'], correct: 3 },
+                { q: 'Danau terbesar di Indonesia adalah?', options: ['Toba', 'Maninjau', 'Sentani', 'Tempe'], correct: 0 },
+                { q: 'Pulau terbesar di Indonesia adalah?', options: ['Jawa', 'Sumatera', 'Kalimantan', 'Sulawesi'], correct: 2 },
+                { q: 'Apa ibukota provinsi Papua?', options: ['Jayapura', 'Manokwari', 'Merauke', 'Biak'], correct: 0 },
+                { q: 'Berapa jumlah pulau di Indonesia?', options: ['13.000', '17.000', '10.000', '20.000'], correct: 1 },
+                { q: 'Apa nama satelit pertama Indonesia?', options: ['Telkom-1', 'Palapa A1', 'Lapan-TUBsat', 'Sinar-1'], correct: 1 },
+                { q: 'Candi Borobudur terletak di provinsi?', options: ['Jawa Timur', 'Jawa Tengah', 'Jawa Barat', 'DIY'], correct: 1 },
+                { q: 'Apa mata uang Jepang?', options: ['Won', 'Yen', 'Yuan', 'Ringgit'], correct: 1 },
+                { q: 'Siapa penemu bola lampu?', options: ['Thomas Edison', 'Nikola Tesla', 'Alexander Bell', 'Albert Einstein'], correct: 0 },
+                { q: 'Berapa jumlah tulang manusia dewasa?', options: ['206', '208', '210', '212'], correct: 0 },
+                { q: 'Apa nama unsur kimia dengan simbol Au?', options: ['Perak', 'Emas', 'Tembaga', 'Aluminium'], correct: 1 },
+                { q: 'Planet terbesar di tata surya adalah?', options: ['Bumi', 'Mars', 'Jupiter', 'Saturnus'], correct: 2 },
+                { q: 'Siapa penulis novel Laskar Pelangi?', options: ['Andrea Hirata', 'Habiburrahman', 'Dee Lestari', 'Leila Chudori'], correct: 0 },
+                { q: 'Apa nama alat musik tradisional dari Jawa Barat?', options: ['Angklung', 'Gamelan', 'Sasando', 'Tifa'], correct: 0 },
+                { q: 'Berapa jumlah warna dalam pelangi?', options: ['5', '6', '7', '8'], correct: 2 },
+                { q: 'Apa nama ibukota Malaysia?', options: ['Singapura', 'Kuala Lumpur', 'Bangkok', 'Jakarta'], correct: 1 },
+                { q: 'Siapa presiden pertama Amerika Serikat?', options: ['Abraham Lincoln', 'George Washington', 'Thomas Jefferson', 'John Adams'], correct: 1 },
+                { q: 'Apa nama zat yang membuat daun hijau?', options: ['Klorofil', 'Karoten', 'Antosianin', 'Melanin'], correct: 0 },
+                { q: 'Berapa hari dalam setahun (non kabisat)?', options: ['364', '365', '366', '367'], correct: 1 },
+                { q: 'Apa nama laut antara Kalimantan dan Sulawesi?', options: ['Laut Jawa', 'Laut Maluku', 'Laut Sulawesi', 'Laut Seram'], correct: 0 }
+            ]
+        };
+
+        let currentQuiz = [];
+        let currentQ = 0;
+        let answers = [];
+        let timer;
+        let timeLeft = 300;
+        let quizType = '';
+
         function startQuiz(type) {
-            closeMateri();
-            currentQuizType = type;
-            
-            switch(type) {
-                case 'psikotes': currentQuiz = shuffleArray([...soalPsikotes]).slice(0, 20); break;
-                case 'wn': currentQuiz = shuffleArray([...soalWN]).slice(0, 20); break;
-                case 'pu': currentQuiz = shuffleArray([...soalPU]).slice(0, 20); break;
-            }
-
-            currentQuestion = 0;
-            userAnswers = new Array(currentQuiz.length).fill(null);
+            quizType = type;
+            currentQuiz = [...quizData[type]].sort(() => Math.random() - 0.5);
+            currentQ = 0;
+            answers = new Array(20).fill(null);
             timeLeft = 300;
             
+            document.getElementById('materiModal').classList.remove('active');
             document.getElementById('quizContainer').classList.add('active');
-            document.getElementById('quizTitle').textContent = `TRYOUT ${type.toUpperCase()}`;
             
+            updateQuiz();
             startTimer();
-            renderQuestion();
         }
 
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        function startTimer() {
-            updateTimerDisplay();
-            quizTimer = setInterval(() => {
-                timeLeft--;
-                updateTimerDisplay();
-                if (timeLeft <= 0) {
-                    finishQuiz();
-                }
-            }, 1000);
-        }
-
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            document.getElementById('timer').textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            
-            if (timeLeft <= 60) {
-                document.getElementById('timer').style.color = 'var(--danger)';
-                document.getElementById('timer').style.borderColor = 'var(--danger)';
-            }
-        }
-
-        function renderQuestion() {
-            const q = currentQuiz[currentQuestion];
-            const progress = ((currentQuestion + 1) / currentQuiz.length) * 100;
-            
-            document.getElementById('quizProgress').style.width = `${progress}%`;
-            document.getElementById('questionCounter').textContent = `${currentQuestion + 1}/${currentQuiz.length}`;
+        function updateQuiz() {
+            const q = currentQuiz[currentQ];
+            document.getElementById('quizTitle').textContent = 'TRYOUT ' + quizType.toUpperCase();
+            document.getElementById('quizCounter').textContent = `${currentQ + 1}/20`;
+            document.getElementById('quizProgress').style.width = `${((currentQ + 1) / 20) * 100}%`;
             
             document.getElementById('quizBody').innerHTML = `
-                <div class="question-card">
-                    <span class="question-number">Soal ${currentQuestion + 1}</span>
-                    <h3 class="question-text">${q.q}</h3>
-                    <div class="options-list">
-                        ${q.options.map((opt, idx) => `
-                            <div class="option-item ${userAnswers[currentQuestion] === idx ? 'selected' : ''}" 
-                                 onclick="selectOption(${idx})">
-                                <div class="option-letter">${String.fromCharCode(65 + idx)}</div>
-                                <div>${opt}</div>
-                            </div>
-                        `).join('')}
-                    </div>
+                <div class="question-box">
+                    <span class="q-num">Soal ${currentQ + 1}</span>
+                    <div class="q-text">${q.q}</div>
+                    ${q.options.map((opt, i) => `
+                        <div class="option ${answers[currentQ] === i ? 'selected' : ''}" onclick="selectAnswer(${i})">
+                            ${String.fromCharCode(65 + i)}. ${opt}
+                        </div>
+                    `).join('')}
                 </div>
             `;
-
-            document.getElementById('prevBtn').disabled = currentQuestion === 0;
-            document.getElementById('nextBtn').innerHTML = 
-                currentQuestion === currentQuiz.length - 1 ? 
-                'Selesai <i class="fas fa-check"></i>' : 
-                'Selanjutnya <i class="fas fa-arrow-right"></i>';
+            
+            document.getElementById('quizPrev').disabled = currentQ === 0;
+            document.getElementById('quizNext').textContent = currentQ === 19 ? 'Selesai' : 'Selanjutnya';
         }
 
-        function selectOption(idx) {
-            userAnswers[currentQuestion] = idx;
-            renderQuestion();
+        function selectAnswer(idx) {
+            answers[currentQ] = idx;
+            updateQuiz();
+        }
+
+        function prevQuestion() {
+            if (currentQ > 0) {
+                currentQ--;
+                updateQuiz();
+            }
         }
 
         function nextQuestion() {
-            if (currentQuestion < currentQuiz.length - 1) {
-                currentQuestion++;
-                renderQuestion();
+            if (currentQ < 19) {
+                currentQ++;
+                updateQuiz();
             } else {
                 finishQuiz();
             }
         }
 
-        function prevQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                renderQuestion();
-            }
+        function startTimer() {
+            updateTimerDisplay();
+            timer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) finishQuiz();
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            const s = (timeLeft % 60).toString().padStart(2, '0');
+            document.getElementById('quizTimer').textContent = `${m}:${s}`;
         }
 
         function finishQuiz() {
-            clearInterval(quizTimer);
+            clearInterval(timer);
             document.getElementById('quizContainer').classList.remove('active');
             
             let correct = 0;
-            userAnswers.forEach((ans, idx) => {
-                if (ans === currentQuiz[idx].correct) correct++;
+            answers.forEach((ans, i) => {
+                if (ans === currentQuiz[i].correct) correct++;
             });
             
-            const score = Math.round((correct / currentQuiz.length) * 100);
+            const score = Math.round((correct / 20) * 100);
             const passed = score >= 61;
             
-            document.getElementById('resultContainer').classList.add('active');
-            document.getElementById('resultIcon').innerHTML = passed ? 
-                '<i class="fas fa-trophy"></i>' : '<i class="fas fa-times-circle"></i>';
-            document.getElementById('resultIcon').className = `result-icon ${passed ? 'pass' : 'fail'}`;
-            document.getElementById('resultTitle').textContent = passed ? 'SELAMAT!' : 'MAAF';
-            document.getElementById('resultTitle').className = `result-title ${passed ? 'pass' : 'fail'}`;
+            const resultContainer = document.getElementById('resultContainer');
+            const icon = document.getElementById('resultIcon');
+            const title = document.getElementById('resultTitle');
+            const motivation = document.getElementById('resultMotivation');
+            
             document.getElementById('resultScore').textContent = score;
             
             if (passed) {
-                document.getElementById('resultMessage').textContent = 
-                    `Anda telah berhasil melewati batas minimum kelulusan dengan nilai ${score}. 
-                    Anda menunjukkan pemahaman yang baik tentang materi ${currentQuizType.toUpperCase()}.`;
-                document.getElementById('resultMotivation').innerHTML = `
-                    <i class="fas fa-quote-left" style="color: var(--apple-green); margin-right: 0.5rem;"></i>
-                    "Kerja keras Anda membuahkan hasil! Ingat, ini baru awal. Teruslah berlatih dan perbaiki 
-                    diri. Kesuksesan sejati adalah perjalanan, bukan tujuan. Orang tua Anda pasti bangga!"
-                    <i class="fas fa-quote-right" style="color: var(--apple-green); margin-left: 0.5rem;"></i>
-                `;
+                icon.className = 'result-icon pass';
+                icon.innerHTML = '<i class="fas fa-trophy"></i>';
+                title.className = 'result-title pass';
+                title.textContent = 'SELAMAT!';
+                document.getElementById('resultMsg').textContent = `Anda telah berhasil melewati batas minimum kelulusan dengan nilai ${score}.`;
+                motivation.className = 'result-motivation';
+                motivation.textContent = '"Kerja keras Anda membuahkan hasil! Anda menunjukkan pemahaman yang baik. Teruslah berlatih dan perbaiki diri. Kesuksesan sejati adalah perjalanan, bukan tujuan. Orang tua Anda pasti bangga!"';
             } else {
-                document.getElementById('resultMessage').textContent = 
-                    `Anda belum mencapai nilai minimum kelulusan (61). Nilai Anda: ${score}. 
-                    Jangan putus asa, ini bukan akhir dari segalanya.`;
-                document.getElementById('resultMotivation').innerHTML = `
-                    <i class="fas fa-quote-left" style="color: var(--danger); margin-right: 0.5rem;"></i>
-                    "Kegagalan adalah guru terbaik. Setiap kesalahan adalah pelajaran berharga. 
-                    Bangkitlah, kuasai materi dengan lebih baik, dan buktikan bahwa Anda bisa! 
-                    Jangan pernah menyerah pada impian Anda untuk membahagiakan orang tua."
-                    <i class="fas fa-quote-right" style="color: var(--danger); margin-left: 0.5rem;"></i>
-                `;
-                document.getElementById('resultMotivation').style.borderLeftColor = 'var(--danger)';
+                icon.className = 'result-icon fail';
+                icon.innerHTML = '<i class="fas fa-times-circle"></i>';
+                title.className = 'result-title fail';
+                title.textContent = 'MAAF';
+                document.getElementById('resultMsg').textContent = `Anda belum mencapai nilai minimum kelulusan (61). Nilai Anda: ${score}.`;
+                motivation.className = 'result-motivation fail';
+                motivation.textContent = '"Kegagalan adalah guru terbaik. Setiap kesalahan adalah pelajaran berharga. Bangkitlah, kuasai materi dengan lebih baik, dan buktikan bahwa Anda bisa! Jangan pernah menyerah pada impian Anda untuk membahagiakan orang tua."';
             }
+            
+            resultContainer.classList.add('active');
         }
 
         function retryQuiz() {
             document.getElementById('resultContainer').classList.remove('active');
-            startQuiz(currentQuizType);
+            startQuiz(quizType);
         }
 
         function closeQuiz() {
             document.getElementById('resultContainer').classList.remove('active');
             document.getElementById('quizContainer').classList.remove('active');
-            clearInterval(quizTimer);
+            clearInterval(timer);
         }
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            renderJadwal();
-        });
-
-        // Close modal on outside click
-        window.onclick = function(event) {
-            const modal = document.getElementById('materiModal');
-            if (event.target === modal) closeMateri();
-        }
+        // Init
+        renderWeeks();
     </script>
 </body>
 </html>
